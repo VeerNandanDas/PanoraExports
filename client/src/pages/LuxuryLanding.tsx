@@ -1,7 +1,10 @@
 import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion";
 import { ArrowRight, Globe, MapPin, Shield, Clock, Star, Anchor, Plane, Box, CheckCircle2, Menu, X, BarChart3, Truck, Users, Leaf, ChevronDown, ChevronUp, Play } from "lucide-react";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useLayoutEffect } from "react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import gsap from 'gsap';
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
 // Assets
 import marbleTexture from "@assets/stock_images/luxury_gold_and_whit_bd54d3a5.jpg";
@@ -16,6 +19,9 @@ import windTurbine from "@assets/stock_images/sustainable_energy_w_b9cc32ff.jpg"
 import digitalNet from "@assets/stock_images/abstract_digital_net_4fec1cb6.jpg";
 import leather from "@assets/stock_images/luxury_leather_textu_3abc8012.jpg";
 import gallery from "@assets/stock_images/modern_art_gallery_i_d5008c72.jpg";
+
+// Register GSAP plugins
+gsap.registerPlugin(ScrollTrigger);
 
 // --- Components ---
 
@@ -115,20 +121,53 @@ export default function LuxuryLanding() {
   const { scrollYProgress } = useScroll();
   const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
   
-  // Zoom effect refs
-  const zoomRef = useRef(null);
-  const { scrollYProgress: zoomScroll } = useScroll({
-    target: zoomRef,
-    offset: ["start start", "end end"]
-  });
+  // --- GSAP ScrollTrigger Logic for Earth Zoom ---
+  const containerRef = useRef(null);
+  const earthRef = useRef(null);
+  const textRef = useRef(null);
+  const overlayRef = useRef(null);
   
-  // Enhanced zoom: Starts small (0.4) and zooms in dramatically (3)
-  const scale = useTransform(zoomScroll, [0, 1], [0.4, 3]); 
-  const opacity = useTransform(zoomScroll, [0.9, 1], [1, 0]);
-  
-  // Text animations synchronized with zoom
-  const textScale = useTransform(zoomScroll, [0, 0.3], [1, 1.2]);
-  const textOpacity = useTransform(zoomScroll, [0.1, 0.4], [1, 0]);
+  useGSAP(() => {
+    // Create a timeline that is scrubbed by scroll
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: "+=300%", // Pin for 300% of the viewport height
+        scrub: 1,      // Smooth scrubbing
+        pin: true,     // Lock the container in place
+        anticipatePin: 1
+      }
+    });
+
+    // 1. Start with Earth small (0.4) and Text visible
+    tl.set(earthRef.current, { scale: 0.4, opacity: 0.8 });
+    tl.set(textRef.current, { opacity: 1, y: 0 });
+    tl.set(overlayRef.current, { opacity: 0 });
+
+    // 2. Zoom Earth IN dramatically (to 4x)
+    tl.to(earthRef.current, { 
+      scale: 4, 
+      duration: 10, 
+      ease: "power2.inOut" 
+    }, 0);
+
+    // 3. Fade out main text early in the zoom
+    tl.to(textRef.current, { 
+      opacity: 0, 
+      y: -100, 
+      duration: 3, 
+      ease: "power1.out" 
+    }, 0);
+
+    // 4. Fade IN the data overlay halfway through the zoom
+    tl.to(overlayRef.current, { 
+      opacity: 1, 
+      duration: 4, 
+      ease: "power1.in" 
+    }, 4); // Start at 40% of timeline
+
+  }, { scope: containerRef }); // Scope to the container
 
   const chartData = [
     { name: 'Jan', value: 400 },
@@ -341,47 +380,39 @@ export default function LuxuryLanding() {
         </div>
       </section>
 
-      {/* Zoom Scroll Feature Section - Live Map Simulation */}
-      <div ref={zoomRef} className="h-[400vh] relative bg-black">
-        <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">
-          <motion.div style={{ scale, opacity }} className="absolute inset-0 flex items-center justify-center">
-             <img src={goldenGlobe} alt="Global" className="w-full h-full object-cover opacity-80" />
-             <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
-          </motion.div>
-          
-          <motion.div 
-            style={{ scale: textScale, opacity: textOpacity }}
-            className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
-          >
-            <div className="text-center max-w-5xl px-6">
-              <span className="text-[#d4af37] text-xs font-bold tracking-[0.4em] uppercase block mb-8 animate-pulse">Live Telemetry</span>
-              <h2 className="font-luxury-heading text-7xl md:text-9xl text-white mb-8 italic drop-shadow-2xl">
-                Global Intelligence
-              </h2>
-              <p className="text-xl text-white/80 font-light max-w-2xl mx-auto backdrop-blur-md bg-white/5 p-8 rounded-none border border-white/10">
-                Real-time telemetry across 6 continents. We monitor your assets with military-grade precision, ensuring total visibility at every coordinate.
-              </p>
-            </div>
-          </motion.div>
+      {/* GSAP PINNED SECTION: Global Intelligence */}
+      <div ref={containerRef} className="relative bg-black h-screen w-full overflow-hidden flex items-center justify-center">
+        <div ref={earthRef} className="absolute inset-0 flex items-center justify-center w-full h-full">
+           <img src={goldenGlobe} alt="Global" className="w-full h-full object-cover opacity-80" />
+           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+        </div>
+        
+        <div ref={textRef} className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+          <div className="text-center max-w-5xl px-6">
+            <span className="text-[#d4af37] text-xs font-bold tracking-[0.4em] uppercase block mb-8 animate-pulse">Live Telemetry</span>
+            <h2 className="font-luxury-heading text-7xl md:text-9xl text-white mb-8 italic drop-shadow-2xl">
+              Global Intelligence
+            </h2>
+            <p className="text-xl text-white/80 font-light max-w-2xl mx-auto backdrop-blur-md bg-white/5 p-8 rounded-none border border-white/10">
+              Real-time telemetry across 6 continents. We monitor your assets with military-grade precision, ensuring total visibility at every coordinate.
+            </p>
+          </div>
+        </div>
 
-          {/* Simulated UI elements appearing on zoom */}
-          <motion.div 
-             style={{ opacity: useTransform(zoomScroll, [0.4, 0.6], [0, 1]) }}
-             className="absolute inset-0 z-20 pointer-events-none p-12 flex flex-col justify-between"
-          >
-            <div className="flex justify-between items-start">
-              <div className="bg-black/50 backdrop-blur-md border border-[#d4af37]/30 p-4 font-mono text-xs text-[#d4af37]">
-                <div>LAT: 51.5074° N</div>
-                <div>LNG: 0.1278° W</div>
-                <div className="mt-2 text-white">STATUS: MONITORING</div>
-              </div>
-              <div className="bg-black/50 backdrop-blur-md border border-[#d4af37]/30 p-4 font-mono text-xs text-[#d4af37] text-right">
-                <div>ACTIVE VESSELS: 142</div>
-                <div>AIRBORNE UNITS: 28</div>
-                <div className="mt-2 text-white">SYSTEM: OPTIMAL</div>
-              </div>
+        {/* Simulated UI elements appearing on zoom */}
+        <div ref={overlayRef} className="absolute inset-0 z-20 pointer-events-none p-12 flex flex-col justify-between opacity-0">
+          <div className="flex justify-between items-start">
+            <div className="bg-black/50 backdrop-blur-md border border-[#d4af37]/30 p-4 font-mono text-xs text-[#d4af37]">
+              <div>LAT: 51.5074° N</div>
+              <div>LNG: 0.1278° W</div>
+              <div className="mt-2 text-white">STATUS: MONITORING</div>
             </div>
-          </motion.div>
+            <div className="bg-black/50 backdrop-blur-md border border-[#d4af37]/30 p-4 font-mono text-xs text-[#d4af37] text-right">
+              <div>ACTIVE VESSELS: 142</div>
+              <div>AIRBORNE UNITS: 28</div>
+              <div className="mt-2 text-white">SYSTEM: OPTIMAL</div>
+            </div>
+          </div>
         </div>
       </div>
 
