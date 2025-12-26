@@ -361,7 +361,7 @@ export default function LuxuryLanding() {
                 Get Verified Now
               </a>
               <a
-                href="#products"
+                href="/products"
                 className="group relative px-8 py-3 text-xs uppercase tracking-widest text-white border border-white/30 hover:border-white transition-colors duration-500 overflow-hidden inline-flex items-center justify-center"
               >
                 <span className="relative z-10 group-hover:text-black transition-colors duration-500">Browse Products</span>
