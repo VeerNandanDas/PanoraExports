@@ -696,7 +696,7 @@ export default function LuxuryLanding() {
           </div>
         </div>
         <div className="max-w-[1800px] mx-auto border-t border-white/10 pt-10 flex flex-col md:flex-row justify-between items-center text-xs text-white/30 dark:text-white/40 uppercase tracking-widest">
-          <div>© 2025 Meridian Global Logistics. All rights reserved.</div>
+          <div>© 2025 Panora Exports. All rights reserved.</div>
           <div className="flex gap-12 mt-6 md:mt-0">
             <span className="hover:text-white cursor-pointer transition-colors">LinkedIn</span>
             <span className="hover:text-white cursor-pointer transition-colors">Instagram</span>
