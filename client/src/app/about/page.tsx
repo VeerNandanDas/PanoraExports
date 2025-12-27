@@ -74,21 +74,21 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* Leadership Section - Single Member */}
+            {/* Leadership Section - Anonymous Founder */}
             <section className="py-32 bg-[#38240D] text-white relative overflow-hidden">
                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
                 <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
                     <div className="w-20 h-1 bg-[#C05800] mx-auto mb-12" />
-                    <h2 className="font-luxury-heading text-4xl md:text-5xl italic mb-12">The Leadership</h2>
+                    <h2 className="font-luxury-heading text-4xl md:text-5xl italic mb-12">The Vision</h2>
 
                     <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-12 md:p-16 max-w-2xl mx-auto hover:border-[#C05800]/50 transition-colors duration-500">
                         <div className="w-24 h-24 mx-auto bg-[#C05800]/20 rounded-full flex items-center justify-center mb-8 border border-[#C05800]">
-                            <span className="font-luxury-heading text-4xl italic text-[#C05800]">R</span>
+                            <User className="w-10 h-10 text-[#C05800]" strokeWidth={1} />
                         </div>
-                        <h3 className="text-2xl font-bold mb-2 tracking-wide">Rishabh</h3>
-                        <p className="text-[#C05800] text-xs uppercase tracking-[0.3em] mb-8">Founder & Visionary</p>
-                        <p className="text-slate-300 leading-relaxed font-light italic text-lg">
-                            "True luxury in trade lies in the peace of mind. At Panora Exports, we are not just moving goods; we are upholding a legacy of Indian craftsmanship and delivering promises globally."
+                        <h3 className="text-2xl font-bold mb-2 tracking-wide">Founder</h3>
+                        <p className="text-[#C05800] text-xs uppercase tracking-[0.3em] mb-8">Architect of Panora Exports</p>
+                        <p className="text-slate-300 leading-relaxed font-light italic text-xl">
+                            "In a global market defined by noise, we chose to speak through the silence of perfection. Panora was founded on the belief that a leader's identity is secondary to the integrity of the promises we keep. We don't just move cargo; we anchor trust."
                         </p>
                     </div>
                 </div>
@@ -98,23 +98,30 @@ export default function AboutPage() {
             <section className="py-32 bg-[#FDFBD4] dark:bg-slate-950">
                 <div className="max-w-[1400px] mx-auto px-6 md:px-12">
                     <div className="flex flex-col md:flex-row justify-between items-end mb-16">
-                        <div>
-                            <span className="text-[#C05800] text-xs font-bold tracking-[0.4em] uppercase block mb-4">Authenticity</span>
-                            <h2 className="font-luxury-heading text-4xl md:text-5xl text-slate-900 dark:text-white italic">Verified & Certified</h2>
+                        <div className="max-w-2xl">
+                            <div className="flex items-center gap-3 mb-4">
+                                <span className="text-[#C05800] text-xs font-bold tracking-[0.4em] uppercase">Authenticity</span>
+                                <div className="h-px w-12 bg-[#C05800]/30" />
+                                <span className="bg-[#C05800]/10 text-[#C05800] text-[10px] px-2 py-0.5 rounded-full font-bold border border-[#C05800]/20 uppercase tracking-tighter">Verified Institutional Profile</span>
+                            </div>
+                            <h2 className="font-luxury-heading text-4xl md:text-5xl text-slate-900 dark:text-white italic mb-6">Verified & Certified</h2>
+                            <p className="text-slate-600 dark:text-slate-400 text-lg font-light leading-relaxed">
+                                While our leadership prioritizes privacy, our commitment to legal compliance is public and absolute. We hold all necessary licenses issued by the Government of India for international trade operations.
+                            </p>
                         </div>
-                        <p className="text-slate-500 dark:text-slate-400 max-w-md text-right mt-6 md:mt-0">
-                            Our commitment to compliance is absolute. We hold all necessary certifications to ensure frictionless global trade.
-                        </p>
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         {[
-                            { name: "Import Export Code", sub: "Govt. of India", icon: FileCheck },
-                            { name: "GST Registered", sub: "Tax Compliance", icon: Building2 },
-                            { name: "FIEO Member", sub: "Export Federation", icon: Globe },
-                            { name: "ISO 9001:2015", sub: "Quality Management", icon: CheckCircle },
+                            { name: "Import Export Code", sub: "DGFT - Govt. of India", icon: FileCheck },
+                            { name: "GST Registered", sub: "Tax & Legal Entity", icon: Building2 },
+                            { name: "FIEO Member", sub: "Federation of Export Org.", icon: Globe },
+                            { name: "ISO 9001:2015", sub: "Certified Quality Mgmt.", icon: CheckCircle },
                         ].map((cert, i) => (
-                            <div key={i} className="aspect-[4/3] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center p-6 text-center hover:shadow-2xl hover:shadow-[#C05800]/5 transition-all duration-500 group">
+                            <div key={i} className="aspect-[4/3] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center p-6 text-center hover:shadow-2xl hover:shadow-[#C05800]/5 transition-all duration-500 group relative overflow-hidden">
+                                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <Shield className="w-4 h-4 text-[#C05800]/20" />
+                                </div>
                                 <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500">
                                     <cert.icon className="w-8 h-8 text-slate-400 group-hover:text-[#C05800] transition-colors" strokeWidth={1} />
                                 </div>
