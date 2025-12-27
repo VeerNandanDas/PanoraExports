@@ -273,7 +273,18 @@ export default function LuxuryLanding() {
           <div className="relative group">
             <div className="absolute -top-10 -left-10 w-60 h-60 border border-[#C05800]/20 rounded-full animate-spin-slow opacity-50" />
             <div className="overflow-hidden">
-              <img src={heritageImage} alt="Heritage" className="relative z-10 shadow-2xl w-full grayscale group-hover:grayscale-0 transition-all duration-1000 scale-100 group-hover:scale-105" />
+              <motion.img
+                src={heritageImage}
+                alt="Heritage"
+                whileInView={{ filter: "grayscale(0%)", scale: 1.05 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{
+                  duration: 1.5,
+                  ease: "easeOut",
+                  delay: typeof window !== 'undefined' && window.innerWidth <= 768 ? 0.2 : 0
+                }}
+                className="relative z-10 shadow-2xl w-full grayscale md:group-hover:grayscale-0 transition-all duration-1000 scale-100 md:group-hover:scale-105"
+              />
             </div>
             <div className="absolute -bottom-12 -right-12 bg-white dark:bg-slate-800 p-12 shadow-2xl border-t-4 border-[#C05800] z-20 max-w-sm hidden md:block">
               <p className="font-luxury-heading italic text-3xl mb-4 text-slate-800 dark:text-white">"Precision is not an act, it is a habit."</p>
@@ -612,7 +623,14 @@ export default function LuxuryLanding() {
           </h2>
           <div className="flex items-center justify-center gap-6">
             <div className="w-16 h-16 border border-[#C05800] rounded-full p-1">
-              <img src={boardroom} className="w-full h-full rounded-full object-cover grayscale" alt="CEO" />
+              <motion.img
+                src={boardroom}
+                whileInView={{ filter: "grayscale(0%)" }}
+                viewport={{ once: true, amount: 0.8 }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
+                className="w-full h-full rounded-full object-cover grayscale md:hover:grayscale-0 transition-all duration-700"
+                alt="CEO"
+              />
             </div>
             <div className="text-left">
               <div className="font-bold text-xl font-luxury-heading italic">Alexander V.</div>
