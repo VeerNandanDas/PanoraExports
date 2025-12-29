@@ -27,10 +27,10 @@ export default function ProtectedRoute({ children, requireAdmin = false }: Prote
     // Show loading state
     if (loading) {
         return (
-            <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
+            <div className="min-h-screen bg-background flex items-center justify-center">
                 <div className="text-center">
-                    <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                    <p className="text-slate-600 dark:text-slate-400">Loading...</p>
+                    <div className="w-16 h-16 border-[1.5px] border-primary border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
+                    <p className="text-[10px] uppercase font-bold tracking-widest text-primary/40">Securing Session...</p>
                 </div>
             </div>
         );
@@ -44,78 +44,80 @@ export default function ProtectedRoute({ children, requireAdmin = false }: Prote
     // Logged in but not admin (when admin is required)
     if (requireAdmin && !isAdmin(user)) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 flex items-center justify-center p-6">
+            <div className="min-h-screen bg-background flex items-center justify-center p-8">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
                     className="max-w-md w-full"
                 >
-                    <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl p-8 border border-red-100 dark:border-red-900/20">
+                    <div className="bg-background border border-border p-10 md:p-12 rounded-sm shadow-sm relative overflow-hidden">
+                        {/* Decorative background mark */}
+                        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-40 h-40 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+
                         {/* Icon */}
-                        <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                            <Lock className="w-10 h-10 text-white" />
+                        <div className="w-16 h-16 bg-secondary border border-border flex items-center justify-center mb-10 mx-auto rounded-sm">
+                            <Lock className="w-6 h-6 text-primary" strokeWidth={1.5} />
                         </div>
 
                         {/* Title */}
-                        <h1 className="text-2xl font-bold text-slate-900 dark:text-white text-center mb-3">
-                            Access Denied
+                        <h1 className="text-2xl font-bold text-primary text-center mb-4 uppercase tracking-tight">
+                            Access Restricted
                         </h1>
 
                         {/* Message */}
-                        <p className="text-slate-600 dark:text-slate-400 text-center mb-6">
-                            You don't have permission to access this page. Admin privileges are required.
+                        <p className="text-[13px] text-primary/60 text-center mb-10 font-medium leading-relaxed">
+                            Administrative privileges are mandatory for this security level. Your account has been logged but access is withheld.
                         </p>
 
-                        {/* User Info */}
-                        <div className="bg-slate-50 dark:bg-slate-800 rounded-xl p-4 mb-6">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-                                    <span className="text-white font-semibold text-sm">
+                        {/* User Profile Summary */}
+                        <div className="bg-secondary/50 border border-border rounded-sm p-6 mb-10">
+                            <div className="flex items-center gap-4">
+                                <div className="w-12 h-12 bg-primary flex items-center justify-center rounded-sm">
+                                    <span className="text-primary-foreground font-bold text-sm">
                                         {user.name.charAt(0).toUpperCase()}
                                     </span>
                                 </div>
-                                <div>
-                                    <p className="text-sm font-medium text-slate-900 dark:text-white">
+                                <div className="overflow-hidden">
+                                    <p className="text-xs font-bold text-primary uppercase truncate tracking-tight">
                                         {user.name}
                                     </p>
-                                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                                    <p className="text-[10px] text-primary/40 font-bold uppercase tracking-widest truncate">
                                         {user.email}
                                     </p>
                                 </div>
                             </div>
-                            <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-700">
-                                <div className="flex items-center justify-between text-xs">
-                                    <span className="text-slate-500 dark:text-slate-400">Role:</span>
-                                    <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-full font-medium">
-                                        {user.role}
-                                    </span>
-                                </div>
+                            <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
+                                <span className="text-[9px] font-bold text-primary/40 uppercase tracking-widest">Active Role</span>
+                                <span className="text-[9px] font-bold text-primary uppercase tracking-widest px-3 py-1 bg-background border border-border rounded-sm">
+                                    {user.role}
+                                </span>
                             </div>
                         </div>
 
-                        {/* Actions */}
-                        <div className="space-y-3">
+                        {/* Action Suite */}
+                        <div className="space-y-4">
                             <button
                                 onClick={() => setLocation('/')}
-                                className="w-full px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 text-white font-medium rounded-xl transition-all shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2"
+                                className="w-full px-8 py-4 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-[0.2em] rounded-sm hover:opacity-90 transition-all flex items-center justify-center gap-3"
                             >
-                                Go to Home
-                                <ArrowRight className="w-4 h-4" />
+                                Return to Terminal
+                                <ArrowRight className="w-3.5 h-3.5" />
                             </button>
                             <button
                                 onClick={() => window.history.back()}
-                                className="w-full px-6 py-3 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                                className="w-full px-8 py-4 border border-border text-primary text-[10px] font-bold uppercase tracking-[0.2em] rounded-sm hover:bg-secondary transition-all"
                             >
-                                Go Back
+                                Revert Change
                             </button>
                         </div>
 
-                        {/* Help Text */}
-                        <div className="mt-6 pt-6 border-t border-slate-200 dark:border-slate-700">
-                            <div className="flex items-start gap-2 text-xs text-slate-500 dark:text-slate-400">
-                                <Shield className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                                <p>
-                                    If you believe you should have admin access, please contact the system administrator.
+                        {/* Security Ledger */}
+                        <div className="mt-10 pt-8 border-t border-border">
+                            <div className="flex items-start gap-3">
+                                <Shield className="w-3.5 h-3.5 text-primary/40 flex-shrink-0 mt-0.5" strokeWidth={1} />
+                                <p className="text-[9px] font-medium text-primary/50 leading-relaxed uppercase tracking-widest">
+                                    This event has been recorded in the security ledger. Unauthorized access attempts are monitored for compliance.
                                 </p>
                             </div>
                         </div>

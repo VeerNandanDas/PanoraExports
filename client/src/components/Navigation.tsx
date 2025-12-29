@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon, LogOut, User as UserIcon } from 'lucide-react';
+import { Menu, X, Sun, Moon, LogOut, User as UserIcon, Terminal, ShieldCheck } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useLocation, Link } from 'wouter';
 import { useAuth } from '@/contexts/AuthContext';
 import { isAdmin } from '@/lib/rbac';
+import { cn } from '@/lib/utils';
 
 export default function Navigation() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -17,237 +18,175 @@ export default function Navigation() {
         setMounted(true);
     }, []);
 
+    const navItems = [
+        { label: 'Products', href: '/products' },
+        { label: 'Categories', href: '/categories' },
+        { label: 'Verification', href: '/verification' },
+        { label: 'FAQ', href: '/faq' },
+        { label: 'Contact', href: '/contact' },
+        { label: 'About', href: '/about' },
+    ];
+
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-[#FDFBD4]/80 dark:bg-[#38240D]/80 backdrop-blur-lg border-b border-[#C05800]/20">
-            <div className="max-w-[1600px] mx-auto px-8 md:px-12 h-20 flex items-center justify-between">
-                {/* Logo - Left */}
-                <Link href="/" className="flex items-center gap-2 group">
-                    <div className="w-8 h-8 bg-[#713600] dark:bg-[#FDFBD4] rounded-sm flex items-center justify-center">
-                        <span className="text-white dark:text-[#38240D] font-bold text-xs">PE</span>
+        <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
+            <div className="max-w-[1600px] mx-auto px-6 md:px-10 h-[72px] flex items-center justify-between">
+                {/* Branding - Left */}
+                <Link href="/" className="flex items-center gap-3 group">
+                    <div className="w-8 h-8 bg-primary rounded-sm flex items-center justify-center flex-shrink-0">
+                        <span className="text-primary-foreground font-black text-[10px] tracking-tighter">PE</span>
                     </div>
-                    <span className="font-bold text-lg tracking-tight text-[#38240D] dark:text-[#FDFBD4]">PANORA</span>
+                    <div className="flex flex-col justify-center">
+                        <div className="flex items-baseline gap-1.5">
+                            <span className="font-bold text-lg tracking-tight text-primary">
+                                PANORA
+                            </span>
+                            <span className="font-serif italic text-primary text-base font-light">
+                                exports
+                            </span>
+                        </div>
+                        <span className="text-[7px] text-muted-foreground uppercase tracking-[0.3em] font-bold leading-none mt-1">
+                            Global Exports
+                        </span>
+                    </div>
                 </Link>
 
-                {/* Center Navigation */}
-                <div className="hidden lg:flex items-center gap-8">
-                    <Link
-                        href="/products"
-                        className={`text-sm transition-colors ${location === '/products'
-                            ? 'text-slate-900 dark:text-white font-medium'
-                            : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
-                            }`}
-                    >
-                        Products
-                    </Link>
-                    <Link
-                        href="/categories"
-                        className={`text-sm transition-colors ${location === '/categories'
-                            ? 'text-slate-900 dark:text-white font-medium'
-                            : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
-                            }`}
-                    >
-                        Categories
-                    </Link>
-                    <Link
-                        href="/verification"
-                        className={`text-sm transition-colors ${location === '/verification'
-                            ? 'text-slate-900 dark:text-white font-medium'
-                            : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
-                            }`}
-                    >
-                        Verification
-                    </Link>
-                    <Link
-                        href="/faq"
-                        className={`text-sm transition-colors ${location === '/faq'
-                            ? 'text-slate-900 dark:text-white font-medium'
-                            : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
-                            }`}
-                    >
-                        FAQ
-                    </Link>
-                    <Link
-                        href="/contact"
-                        className={`text-sm transition-colors ${location === '/contact'
-                            ? 'text-slate-900 dark:text-white font-medium'
-                            : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
-                            }`}
-                    >
-                        Contact
-                    </Link>
-                    <Link
-                        href="/about"
-                        className={`text-sm transition-colors ${location === '/about'
-                            ? 'text-slate-900 dark:text-white font-medium'
-                            : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white'
-                            }`}
-                    >
-                        About
-                    </Link>
-                    {/* Admin Link - Show only for admin users */}
-                    {userIsAdmin && (
+                {/* Desktop Navigation */}
+                <div className="hidden xl:flex items-center gap-14">
+                    {navItems.map((item) => (
                         <Link
-                            href="/admin"
-                            className={`flex items-center gap-1.5 text-sm transition-colors ${location === '/admin'
-                                ? 'text-purple-600 dark:text-purple-400 font-medium'
-                                : 'text-slate-600 dark:text-slate-300 hover:text-purple-600 dark:hover:text-purple-400'
-                                }`}
+                            key={item.href}
+                            href={item.href}
+                            className={cn(
+                                "text-[9px] tracking-[0.2em] uppercase font-bold transition-all duration-300 relative py-1",
+                                location === item.href
+                                    ? "text-primary"
+                                    : "text-muted-foreground/70 hover:text-primary"
+                            )}
                         >
-                            Admin
-                            <span className="px-1.5 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 text-[10px] font-bold rounded">
-                                ⚡
-                            </span>
+                            {item.label}
+                            {location === item.href && (
+                                <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-primary" />
+                            )}
                         </Link>
-                    )}
+                    ))}
                 </div>
 
                 {/* Right Actions */}
                 <div className="flex items-center gap-4">
-                    {/* Language/Region */}
-                    <button className="hidden md:block text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
-                        ENG
-                    </button>
+                    {/* Admin Dashboard Button */}
+                    {userIsAdmin && (
+                        <Link
+                            href="/admin"
+                            className="hidden md:flex items-center gap-2 px-4 py-2 bg-secondary border border-transparent hover:border-border transition-all rounded-sm group"
+                        >
+                            <ShieldCheck className="w-3 h-3 text-primary opacity-70 group-hover:opacity-100" />
+                            <span className="text-[9px] text-primary uppercase tracking-[0.2em] font-bold transition-colors">Dashboard</span>
+                        </Link>
+                    )}
 
                     {/* Theme Toggle */}
                     {mounted && (
                         <button
                             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                            className="hidden md:flex w-9 h-9 items-center justify-center text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+                            className="w-8 h-8 items-center justify-center text-muted-foreground hover:text-primary transition-colors flex"
                             aria-label="Toggle theme"
                         >
-                            {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                            {theme === "dark" ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
                         </button>
                     )}
 
-                    {/* User Menu or Sign In */}
+                    {/* User Profile */}
                     {user ? (
                         <div className="hidden md:flex items-center gap-3">
-                            <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-full">
-                                <UserIcon className="w-4 h-4 text-slate-600 dark:text-slate-300" />
-                                <span className="text-sm text-slate-900 dark:text-white">{user.name}</span>
-                                {user.verification_status === 'VERIFIED' && (
-                                    <span className="text-xs bg-green-500 text-white px-2 py-0.5 rounded-full">✓</span>
-                                )}
+                            <div className="flex items-center bg-secondary rounded-sm p-1 pr-3 gap-2 border border-transparent">
+                                <div className="w-6 h-6 bg-background rounded-sm flex items-center justify-center border border-border">
+                                    <UserIcon className="w-3 h-3 text-muted-foreground" />
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    <span className="text-[10px] font-bold text-primary tracking-tight">{user.name}</span>
+                                    {user.verification_status === 'VERIFIED' && (
+                                        <div className="bg-primary/10 px-1.5 py-0.5 rounded-sm border border-primary/20">
+                                            <span className="text-[7px] font-black text-primary uppercase tracking-widest leading-none">Verified</span>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                             <button
                                 onClick={async () => {
                                     await logout();
                                     setLocation('/');
                                 }}
-                                className="p-2 text-slate-600 dark:text-slate-300 hover:text-red-600 dark:hover:text-red-400 transition-colors"
+                                className="p-1.5 text-muted-foreground hover:text-primary transition-colors"
                                 title="Logout"
                             >
-                                <LogOut className="w-4 h-4" />
+                                <LogOut className="w-3.5 h-3.5" />
                             </button>
                         </div>
                     ) : (
                         <Link
                             href="/auth/login"
-                            className="hidden md:block text-sm font-medium text-[#38240D] dark:text-[#FDFBD4] border-b-2 border-[#C05800] pb-0.5 hover:opacity-70 transition-opacity"
+                            className="hidden md:flex items-center gap-2 text-[9px] font-bold text-primary-foreground tracking-[0.2em] bg-primary px-5 py-2 hover:opacity-90 transition-all rounded-sm uppercase"
                         >
-                            SIGN IN
+                            Login
                         </Link>
                     )}
 
-                    {/* Mobile Menu */}
+                    {/* Mobile Menu Toggle */}
                     <button
-                        className="lg:hidden w-9 h-9 flex items-center justify-center text-slate-900 dark:text-white"
+                        className="xl:hidden text-primary p-1"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        aria-label="Toggle menu"
                     >
                         {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                     </button>
                 </div>
             </div>
 
-            {/* Mobile Menu */}
+            {/* Mobile Menu Overlay */}
             {isMenuOpen && (
-                <div className="lg:hidden bg-white dark:bg-slate-900 border-t border-slate-200/50 dark:border-slate-700/50">
-                    <div className="flex flex-col gap-4 p-8">
-                        <Link
-                            href="/products"
-                            onClick={() => setIsMenuOpen(false)}
-                            className="text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-                        >
-                            Products
-                        </Link>
-                        <Link
-                            href="/categories"
-                            onClick={() => setIsMenuOpen(false)}
-                            className="text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-                        >
-                            Categories
-                        </Link>
-                        <Link
-                            href="/verification"
-                            onClick={() => setIsMenuOpen(false)}
-                            className="text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-                        >
-                            Verification
-                        </Link>
-                        <Link
-                            href="/faq"
-                            onClick={() => setIsMenuOpen(false)}
-                            className="text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-                        >
-                            FAQ
-                        </Link>
-                        <Link
-                            href="/contact"
-                            onClick={() => setIsMenuOpen(false)}
-                            className="text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-                        >
-                            Contact
-                        </Link>
-                        <Link
-                            href="/about"
-                            onClick={() => setIsMenuOpen(false)}
-                            className="text-sm text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
-                        >
-                            About
-                        </Link>
+                <div className="xl:hidden bg-background h-[calc(100vh-88px)] overflow-y-auto">
+                    <div className="flex flex-col p-8 gap-8">
+                        {navItems.map((item) => (
+                            <Link
+                                key={item.label}
+                                href={item.href}
+                                onClick={() => setIsMenuOpen(false)}
+                                className="text-2xl uppercase tracking-[0.2em] font-black text-muted-foreground hover:text-primary"
+                            >
+                                {item.label}
+                            </Link>
+                        ))}
+
                         {userIsAdmin && (
                             <Link
                                 href="/admin"
                                 onClick={() => setIsMenuOpen(false)}
-                                className="flex items-center gap-2 text-sm text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 transition-colors font-medium"
+                                className="text-sm uppercase tracking-[0.3em] font-black text-primary"
                             >
-                                Admin Dashboard
-                                <span className="px-1.5 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 text-[10px] font-bold rounded">
-                                    ⚡
-                                </span>
+                                Admin Terminal ⚡
                             </Link>
                         )}
 
+                        <div className="h-[1px] bg-primary/10 my-4" />
+
                         {user ? (
-                            <>
-                                <div className="border-t border-slate-200 dark:border-slate-700 pt-4 mt-2">
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <UserIcon className="w-4 h-4 text-slate-600 dark:text-slate-300" />
-                                        <span className="text-sm text-slate-900 dark:text-white font-medium">{user.name}</span>
-                                        {user.verification_status === 'VERIFIED' && (
-                                            <span className="text-xs bg-green-500 text-white px-2 py-0.5 rounded-full">✓</span>
-                                        )}
-                                    </div>
-                                    <button
-                                        onClick={async () => {
-                                            await logout();
-                                            setIsMenuOpen(false);
-                                            setLocation('/');
-                                        }}
-                                        className="flex items-center gap-2 text-sm text-red-600 dark:text-red-400 hover:underline"
-                                    >
-                                        <LogOut className="w-4 h-4" />
-                                        Logout
-                                    </button>
-                                </div>
-                            </>
+                            <button
+                                onClick={async () => {
+                                    await logout();
+                                    setIsMenuOpen(false);
+                                    setLocation('/');
+                                }}
+                                className="flex items-center gap-3 text-primary"
+                            >
+                                <LogOut className="w-5 h-5" />
+                                <span className="text-sm uppercase tracking-[0.2em] font-black">Logout</span>
+                            </button>
                         ) : (
                             <Link
                                 href="/auth/login"
-                                className="text-sm font-medium text-slate-900 dark:text-white mt-4 inline-block"
+                                onClick={() => setIsMenuOpen(false)}
+                                className="text-sm uppercase tracking-[0.2em] font-black text-primary-foreground bg-primary p-5 text-center rounded-sm"
                             >
-                                SIGN IN →
+                                Access Account
                             </Link>
                         )}
                     </div>

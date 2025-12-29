@@ -8,6 +8,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import NotFound from "@/pages/not-found";
 import LuxuryLanding from "@/pages/LuxuryLanding";
 import ProductsPage from "@/app/products/page";
+import ProductDetailPage from "@/app/products/[id]/page";
 import ProductsComingSoon from "@/app/products/coming-soon/page";
 import CategoriesPage from "@/app/categories/page";
 import VerificationPage from "@/app/verification/page";
@@ -16,7 +17,8 @@ import LoginPage from "@/app/auth/login/page";
 import RegisterPage from "@/app/auth/register/page";
 import AdminDashboard from "@/app/admin/page";
 import FAQPage from "@/app/faq/page";
-import ContactPage from "@/app/contact/page";
+import ContactPage from "./app/contact/page";
+
 import { useEffect } from "react";
 
 function Router() {
@@ -25,7 +27,7 @@ function Router() {
       <Route path="/" component={LuxuryLanding} />
       <Route path="/products" component={ProductsPage} />
       <Route path="/products/coming-soon" component={ProductsComingSoon} />
-      <Route path="/products/:id" component={ProductsComingSoon} />
+      <Route path="/products/:id" component={ProductDetailPage} />
       <Route path="/categories" component={CategoriesPage} />
       <Route path="/verification" component={VerificationPage} />
       <Route path="/about" component={AboutPage} />

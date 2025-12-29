@@ -11,7 +11,7 @@ const categories = [
         description: 'Premium fabrics, garments, and textile products',
         count: 1247,
         image: 'https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?w=800&h=600&fit=crop&q=80',
-        icon: '🧵',
+        icon: Package,
         subcategories: ['Cotton Fabrics', 'Silk', 'Synthetic', 'Home Textiles'],
     },
     {
@@ -20,7 +20,7 @@ const categories = [
         description: 'Organic produce, grains, and agricultural products',
         count: 856,
         image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=800&h=600&fit=crop&q=80',
-        icon: '🌾',
+        icon: Package,
         subcategories: ['Rice', 'Wheat', 'Pulses', 'Fresh Produce'],
     },
     {
@@ -29,7 +29,7 @@ const categories = [
         description: 'Construction materials, tools, and metal products',
         count: 623,
         image: 'https://images.unsplash.com/photo-1504148455328-c376907d081c?w=800&h=600&fit=crop&q=80',
-        icon: '🔧',
+        icon: Package,
         subcategories: ['Building Materials', 'Tools', 'Fasteners', 'Metal Products'],
     },
     {
@@ -38,7 +38,7 @@ const categories = [
         description: 'Traditional Indian handicrafts and artisan products',
         count: 1534,
         image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=800&h=600&fit=crop&q=80',
-        icon: '🎨',
+        icon: Package,
         subcategories: ['Textiles', 'Pottery', 'Woodwork', 'Metalcraft'],
     },
     {
@@ -47,7 +47,7 @@ const categories = [
         description: 'Authentic Indian spices and seasonings',
         count: 342,
         image: 'https://images.unsplash.com/photo-1596040033229-a0b6df7b0fff?w=800&h=600&fit=crop&q=80',
-        icon: '🌶️',
+        icon: Package,
         subcategories: ['Whole Spices', 'Ground Spices', 'Spice Blends', 'Organic'],
     },
     {
@@ -56,7 +56,7 @@ const categories = [
         description: 'Premium leather products and accessories',
         count: 478,
         image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800&h=600&fit=crop&q=80',
-        icon: '👜',
+        icon: Package,
         subcategories: ['Bags', 'Shoes', 'Accessories', 'Garments'],
     },
     {
@@ -65,7 +65,7 @@ const categories = [
         description: 'Fine jewelry and precious stones',
         count: 729,
         image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&h=600&fit=crop&q=80',
-        icon: '💎',
+        icon: Package,
         subcategories: ['Gold Jewelry', 'Silver', 'Precious Stones', 'Fashion Jewelry'],
     },
     {
@@ -74,117 +74,108 @@ const categories = [
         description: 'Natural health and wellness products',
         count: 412,
         image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&h=600&fit=crop&q=80',
-        icon: '🌸',
+        icon: Package,
         subcategories: ['Herbs', 'Oils', 'Supplements', 'Cosmetics'],
     },
 ];
 
 export default function CategoriesPage() {
     return (
-        <div className="min-h-screen bg-[#FDFBD4] dark:bg-[#38240D] pt-20">
+        <div className="min-h-screen bg-background pt-20 font-sans antialiased text-primary">
             <Navigation />
 
-            {/* Compact Hero Section */}
-            <section className="border-b border-[#C05800]/20 bg-gradient-to-b from-[#FDFBD4]/50 to-transparent dark:from-[#38240D]/30">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-8 py-8">
-                    <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-2">
-                        Categories
+            {/* Hero Section */}
+            <section className="bg-background">
+                <div className="max-w-[1600px] mx-auto px-8 md:px-12 py-20 md:py-24">
+                    <div className="flex items-center gap-3 mb-8">
+                        <div className="h-[1.5px] w-8 bg-primary" />
+                        <span className="text-primary text-[9px] font-bold tracking-[0.3em] uppercase">Industry Sectors</span>
+                    </div>
+                    <h1 className="text-5xl md:text-7xl font-bold text-primary mb-8 tracking-tight">
+                        Business <span className="font-serif italic font-light opacity-80">Sectors.</span>
                     </h1>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 max-w-xl">
-                        Explore our diverse range of export categories
+                    <p className="text-lg text-primary/70 max-w-xl font-medium leading-relaxed">
+                        Explore our categorized export offerings across various industries, sourced from verified Indian manufacturers.
                     </p>
                 </div>
             </section>
 
-            {/* Compact Stats Bar */}
-            <section className="border-b border-[#C05800]/20 bg-[#FDFBD4]/50 dark:bg-[#38240D]/20">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-8 py-6">
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                        <div>
-                            <p className="text-2xl font-bold text-slate-900 dark:text-white">8</p>
-                            <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Main Categories</p>
-                        </div>
-                        <div>
-                            <p className="text-2xl font-bold text-slate-900 dark:text-white">6,221</p>
-                            <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Total Products</p>
-                        </div>
-                        <div>
-                            <p className="text-2xl font-bold text-slate-900 dark:text-white">500+</p>
-                            <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Verified Sellers</p>
-                        </div>
-                        <div>
-                            <p className="text-2xl font-bold text-slate-900 dark:text-white">50+</p>
-                            <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">Countries</p>
-                        </div>
+            {/* Stats Bar */}
+            <section className="border-y border-border bg-secondary/30">
+                <div className="max-w-[1600px] mx-auto px-8 md:px-12 py-10">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
+                        {[
+                            { value: '08+', label: 'Industry Sectors' },
+                            { value: '6K+', label: 'Products' },
+                            { value: '500+', label: 'Verified Suppliers' },
+                            { value: '25+', label: 'Countries Served' }
+                        ].map((stat, i) => (
+                            <div key={i} className="text-center md:text-left">
+                                <p className="text-4xl font-bold text-primary mb-1 tracking-tight">{stat.value}</p>
+                                <p className="text-[9px] uppercase font-bold text-muted-foreground tracking-widest">{stat.label}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            {/* Compact Categories Grid */}
-            <section className="max-w-[1400px] mx-auto px-6 md:px-8 py-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {/* Categories Grid */}
+            <section className="max-w-[1600px] mx-auto px-8 md:px-12 py-20">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {categories.map((category, index) => (
                         <motion.a
                             key={category.id}
                             href={`/products?category=${category.name}`}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.3, delay: index * 0.05 }}
-                            className="group bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/50 hover:border-slate-300 dark:hover:border-slate-700 transition-all hover:shadow-lg overflow-hidden"
+                            transition={{ duration: 0.5, delay: index * 0.05 }}
+                            className="group bg-background border border-border hover:border-primary/20 transition-all rounded-sm overflow-hidden"
                         >
                             {/* Image Container */}
-                            <div className="relative aspect-[16/10] bg-slate-100 dark:bg-slate-900 overflow-hidden">
+                            <div className="relative aspect-video bg-secondary overflow-hidden">
                                 <motion.img
                                     src={category.image}
                                     alt={category.name}
-                                    loading="lazy"
-                                    whileInView={{ filter: "blur(0px) grayscale(0%)", scale: 1.05 }}
-                                    viewport={{ once: true, amount: 0.3 }}
-                                    transition={{
-                                        duration: 1.5,
-                                        ease: "easeOut",
-                                        delay: typeof window !== 'undefined' && window.innerWidth <= 768 ? 0.2 : 0
-                                    }}
-                                    className="absolute inset-0 w-full h-full object-cover blur-md grayscale md:group-hover:filter-none md:group-hover:scale-105 transition-all duration-700"
+                                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                 />
-                                <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                                <div className="absolute inset-0 bg-primary/20 group-hover:bg-primary/10 transition-colors" />
+                                <div className="absolute top-6 left-6">
+                                    <category.icon className="w-8 h-8 text-primary-foreground drop-shadow-lg" strokeWidth={1.5} />
+                                </div>
                             </div>
 
-                            {/* Compact Content */}
-                            <div className="p-4">
-                                <div className="flex items-start justify-between mb-2">
+                            {/* Content */}
+                            <div className="p-8">
+                                <div className="flex items-start justify-between mb-6">
                                     <div className="flex-1">
-                                        <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-1 group-hover:text-[#C05800] transition-colors">
+                                        <h2 className="text-xl font-bold text-primary mb-3 uppercase tracking-tight">
                                             {category.name}
                                         </h2>
-                                        <p className="text-xs text-slate-600 dark:text-slate-400 line-clamp-2">
+                                        <p className="text-[13px] text-primary/60 line-clamp-2 font-medium leading-relaxed">
                                             {category.description}
                                         </p>
                                     </div>
-                                    <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-[#C05800] group-hover:translate-x-1 transition-all flex-shrink-0 ml-2 mt-1" />
+                                    <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center group-hover:bg-primary group-hover:border-primary group-hover:text-secondary transition-all">
+                                        <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-all" strokeWidth={1.5} />
+                                    </div>
                                 </div>
 
                                 {/* Subcategories */}
-                                <div className="flex flex-wrap gap-1.5 mb-3">
+                                <div className="flex flex-wrap gap-1.5 mb-8">
                                     {category.subcategories.slice(0, 3).map((sub) => (
                                         <span
                                             key={sub}
-                                            className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-[10px] rounded-full"
+                                            className="px-3 py-1 bg-secondary border border-border text-muted-foreground text-[8px] font-bold uppercase tracking-wider rounded-sm group-hover:border-primary/20 group-hover:text-primary transition-colors"
                                         >
                                             {sub}
                                         </span>
                                     ))}
-                                    {category.subcategories.length > 3 && (
-                                        <span className="px-2 py-0.5 text-slate-400 text-[10px]">
-                                            +{category.subcategories.length - 3}
-                                        </span>
-                                    )}
                                 </div>
 
                                 {/* Count */}
-                                <div className="flex items-center gap-1.5 text-xs text-slate-500 dark:text-slate-500">
-                                    <Package className="w-3.5 h-3.5" />
-                                    <span>{category.count.toLocaleString()} products</span>
+                                <div className="flex items-center gap-2.5 text-[9px] font-bold uppercase tracking-widest text-muted-foreground/60 border-t border-border pt-6">
+                                    <Package className="w-3.5 h-3.5 text-primary/40" strokeWidth={1.5} />
+                                    <span>{category.count.toLocaleString()} Listings</span>
                                 </div>
                             </div>
                         </motion.a>
@@ -192,20 +183,31 @@ export default function CategoriesPage() {
                 </div>
             </section>
 
-            {/* Compact CTA Section */}
-            <section className="border-t border-slate-200/50 dark:border-slate-800/50 bg-gradient-to-b from-transparent to-slate-50/50 dark:to-slate-900/30">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-8 py-12 text-center">
-                    <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
-                        Can't find what you're looking for?
+            {/* CTA Section */}
+            <section className="bg-secondary/30 relative overflow-hidden">
+                <div className="max-w-[1600px] mx-auto px-8 md:px-12 py-24 text-center">
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        className="inline-flex items-center gap-3 px-4 py-1.5 bg-background border border-border rounded-sm mb-10"
+                    >
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                        <span className="text-[9px] font-bold uppercase tracking-widest text-primary">Custom Sourcing</span>
+                    </motion.div>
+
+                    <h2 className="text-4xl md:text-6xl font-bold text-primary mb-10 tracking-tight max-w-3xl mx-auto leading-tight">
+                        Can't find a specific <br />
+                        <span className="font-serif italic font-light opacity-80">requirement?</span>
                     </h2>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 mb-6 max-w-xl mx-auto">
-                        Submit an RFQ and get quotes from verified suppliers
+                    <p className="text-lg text-primary/60 mb-12 max-w-xl mx-auto font-medium">
+                        Request a custom quote and our trade desk will identify the right manufacturers for your needs.
                     </p>
                     <a
-                        href="/rfq"
-                        className="inline-block px-6 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs font-medium hover:opacity-90 transition-opacity uppercase tracking-wider"
+                        href="/contact"
+                        className="inline-flex items-center px-10 py-5 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-widest hover:opacity-90 transition-all rounded-sm group"
                     >
-                        Submit RFQ
+                        Request Quote
+                        <ArrowRight className="w-4 h-4 ml-3 group-hover:translate-x-1 transition-transform" />
                     </a>
                 </div>
             </section>

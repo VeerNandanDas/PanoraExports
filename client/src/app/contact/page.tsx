@@ -67,151 +67,144 @@ export default function ContactPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#FDFBD4] dark:bg-[#38240D] pt-20">
+        <div className="min-h-screen bg-background pt-20 font-sans antialiased text-primary">
             <Navigation />
 
             {/* Hero */}
-            <section className="relative py-16 md:py-24 border-b border-slate-200/50 dark:border-slate-800/50 overflow-hidden">
-                <div className="absolute inset-0 bg-[#FDFBD4]/50 dark:bg-[#38240D]/50 -z-10" />
+            <section className="relative py-20 bg-background">
                 <div className="max-w-4xl mx-auto px-6 text-center">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
+                    <motion.div
+                        initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 font-luxury-heading"
+                        className="inline-flex items-center gap-2 px-4 py-1.5 bg-secondary text-primary rounded-sm mb-8"
                     >
-                        Get in <span className="text-[#C05800] italic">Touch</span>
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
+                        <Mail className="w-3.5 h-3.5" />
+                        <span className="text-[9px] uppercase font-bold tracking-[0.2em]">Contact Us</span>
+                    </motion.div>
+                    <motion.h1
+                        initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto"
+                        className="text-4xl md:text-6xl font-bold text-primary mb-8 tracking-tight"
                     >
-                        Have a question about our products or want to start sourcing? We're here to help around the clock.
+                        Get in <span className="font-serif italic font-light opacity-80 text-primary">Touch.</span>
+                    </motion.h1>
+                    <motion.p
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-primary/70 text-lg max-w-xl mx-auto font-medium"
+                    >
+                        Have questions about our products or sourcing? Our team is available to assist your business requirements.
                     </motion.p>
                 </div>
             </section>
 
-            <section className="max-w-6xl mx-auto px-6 py-16">
-                <div className="grid md:grid-cols-2 gap-12 lg:gap-24">
+            <section className="max-w-[1400px] mx-auto px-6 md:px-12 py-20">
+                <div className="grid lg:grid-cols-2 gap-20">
                     {/* Contact Info */}
                     <div className="space-y-12">
                         <div>
-                            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Contact Information</h2>
-                            <div className="space-y-8">
-                                <div className="flex items-start gap-4 group">
-                                    <div className="p-3 bg-[#C05800]/10 text-[#C05800] rounded-full group-hover:bg-[#C05800] group-hover:text-white transition-colors duration-300">
-                                        <Mail className="w-6 h-6" />
+                            <div className="flex items-center gap-3 mb-10">
+                                <div className="w-8 h-[1.5px] bg-primary" />
+                                <h2 className="text-[10px] font-bold text-primary uppercase tracking-widest">Global Support</h2>
+                            </div>
+
+                            <div className="space-y-10">
+                                {[
+                                    {
+                                        icon: Mail,
+                                        label: 'Email',
+                                        val: 'panoraexports@gmail.com',
+                                        href: 'mailto:panoraexports@gmail.com'
+                                    },
+                                    {
+                                        icon: Phone,
+                                        label: 'Phone',
+                                        val: '+91 (Support Line)',
+                                        href: '#'
+                                    },
+                                    {
+                                        icon: MapPin,
+                                        label: 'HQ',
+                                        val: 'Mumbai, India',
+                                        sub: 'Serving UAE, UK, & Europe'
+                                    }
+                                ].map((item, i) => (
+                                    <div key={i} className="flex items-start gap-6 group">
+                                        <div className="w-12 h-12 bg-secondary text-primary rounded-sm flex items-center justify-center border border-border transition-all">
+                                            <item.icon className="w-5 h-5" strokeWidth={1.5} />
+                                        </div>
+                                        <div>
+                                            <p className="text-[9px] text-muted-foreground uppercase tracking-widest font-bold mb-1">{item.label}</p>
+                                            {item.href ? (
+                                                <a href={item.href} className="text-lg text-primary font-bold hover:opacity-70 transition-opacity">
+                                                    {item.val}
+                                                </a>
+                                            ) : (
+                                                <p className="text-lg text-primary font-bold">{item.val}</p>
+                                            )}
+                                            {item.sub && <p className="text-primary/50 font-medium text-[13px] mt-1">{item.sub}</p>}
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p className="text-sm text-slate-500 dark:text-slate-400 uppercase tracking-wider font-medium mb-1">Email Us</p>
-                                        <a href="mailto:panoraexports@gmail.com" className="text-lg text-slate-900 dark:text-white font-medium hover:text-[#C05800] transition-colors">
-                                            panoraexports@gmail.com
-                                        </a>
-                                    </div>
-                                </div>
-                                <div className="flex items-start gap-4 group">
-                                    <div className="p-3 bg-[#C05800]/10 text-[#C05800] rounded-full group-hover:bg-[#C05800] group-hover:text-white transition-colors duration-300">
-                                        <Phone className="w-6 h-6" />
-                                    </div>
-                                    <div>
-                                        <p className="text-sm text-slate-500 dark:text-slate-400 uppercase tracking-wider font-medium mb-1">Call Us</p>
-                                        <p className="text-lg text-slate-900 dark:text-white font-medium">
-                                            +91 (Support Line)
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="flex items-start gap-4 group">
-                                    <div className="p-3 bg-[#C05800]/10 text-[#C05800] rounded-full group-hover:bg-[#C05800] group-hover:text-white transition-colors duration-300">
-                                        <MapPin className="w-6 h-6" />
-                                    </div>
-                                    <div>
-                                        <p className="text-sm text-slate-500 dark:text-slate-400 uppercase tracking-wider font-medium mb-1">Headquarters</p>
-                                        <p className="text-lg text-slate-900 dark:text-white font-medium">
-                                            Mumbai, India
-                                        </p>
-                                        <p className="text-slate-500 dark:text-slate-400">Serving clients globally</p>
-                                    </div>
-                                </div>
+                                ))}
                             </div>
                         </div>
 
-                        <div className="p-8 bg-[#FDFBD4]/50 dark:bg-[#38240D] rounded-lg border border-[#C05800]/20">
-                            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Business Hours</h3>
-                            <div className="space-y-2 text-slate-600 dark:text-slate-400">
-                                <div className="flex justify-between">
-                                    <span>Monday - Friday</span>
-                                    <span>9:00 AM - 6:00 PM IST</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span>Saturday</span>
-                                    <span>10:00 AM - 4:00 PM IST</span>
-                                </div>
-                                <div className="flex justify-between">
-                                    <span>Sunday</span>
-                                    <span>Closed</span>
-                                </div>
+                        <div className="p-10 bg-secondary/50 border border-border rounded-sm relative overflow-hidden group">
+                            <h3 className="text-[10px] font-bold text-primary uppercase tracking-widest mb-8 border-b border-border pb-4">Hours (IST)</h3>
+                            <div className="space-y-4 text-primary font-bold text-[13px]">
+                                {[
+                                    { day: 'Mon - Fri', hours: '9:00 AM - 6:00 PM' },
+                                    { day: 'Sat', hours: '10:00 AM - 4:00 PM' },
+                                    { day: 'Sun', hours: 'Closed', highlight: true }
+                                ].map((row, i) => (
+                                    <div key={i} className="flex justify-between items-center">
+                                        <span className="opacity-40 uppercase tracking-widest text-[9px]">{row.day}</span>
+                                        <span className={row.highlight ? 'text-primary/60' : ''}>{row.hours}</span>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
 
                     {/* Contact Form */}
-                    <div className="bg-[#FDFBD4] dark:bg-[#38240D] border border-[#C05800]/20 p-8 md:p-10 shadow-xl rounded-sm">
-                        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">Send Message</h2>
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <div className="space-y-2">
-                                <label className="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium">
-                                    Full Name *
-                                </label>
-                                <input
-                                    type="text"
-                                    required
-                                    value={formData.name}
-                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                    className="w-full px-4 py-3 border-b border-slate-200 dark:border-slate-700 bg-transparent focus:outline-none focus:border-[#C05800] transition-colors text-slate-900 dark:text-white placeholder:text-slate-300"
-                                    placeholder="John Doe"
-                                />
-                            </div>
+                    <div className="bg-background border border-border p-8 md:p-12 rounded-sm shadow-sm">
+                        <div className="flex items-center gap-3 mb-10">
+                            <h2 className="text-xl font-bold text-primary uppercase tracking-tight">Send Message</h2>
+                        </div>
 
-                            <div className="space-y-2">
-                                <label className="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium flex justify-between">
-                                    <span>Email Address *</span>
-                                    <span className="text-[10px] text-[#C05800] lowercase italic tracking-normal">Business emails only</span>
-                                </label>
-                                <input
-                                    type="email"
-                                    required
-                                    value={formData.email}
-                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    className="w-full px-4 py-3 border-b border-slate-200 dark:border-slate-700 bg-transparent focus:outline-none focus:border-[#C05800] transition-colors text-slate-900 dark:text-white placeholder:text-slate-300"
-                                    placeholder="name@yourcompany.com"
-                                />
-                            </div>
+                        <form onSubmit={handleSubmit} className="space-y-8">
+                            {[
+                                { label: 'Full Name', key: 'name', type: 'text', placeholder: 'John Doe' },
+                                { label: 'Business Email', key: 'email', type: 'email', placeholder: 'john@company.com' },
+                                { label: 'Subject', key: 'subject', type: 'text', placeholder: 'Product Inquiry' }
+                            ].map((field) => (
+                                <div key={field.key} className="space-y-2.5">
+                                    <label className="text-[9px] uppercase tracking-widest text-muted-foreground font-bold">
+                                        {field.label}
+                                    </label>
+                                    <input
+                                        type={field.type}
+                                        required
+                                        value={(formData as any)[field.key]}
+                                        onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
+                                        className="w-full px-0 py-3 border-b border-border bg-transparent focus:outline-none focus:border-primary transition-colors text-primary font-medium placeholder:text-muted-foreground/30 text-base"
+                                        placeholder={field.placeholder}
+                                    />
+                                </div>
+                            ))}
 
-                            <div className="space-y-2">
-                                <label className="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium">
-                                    Subject *
-                                </label>
-                                <input
-                                    type="text"
-                                    required
-                                    value={formData.subject}
-                                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                                    className="w-full px-4 py-3 border-b border-slate-200 dark:border-slate-700 bg-transparent focus:outline-none focus:border-[#C05800] transition-colors text-slate-900 dark:text-white placeholder:text-slate-300"
-                                    placeholder="Product Inquiry"
-                                />
-                            </div>
-
-                            <div className="space-y-2">
-                                <label className="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium">
-                                    Message *
+                            <div className="space-y-2.5">
+                                <label className="text-[9px] uppercase tracking-widest text-muted-foreground font-bold">
+                                    Message
                                 </label>
                                 <textarea
                                     required
                                     rows={4}
                                     value={formData.message}
                                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                    className="w-full px-4 py-3 border-b border-slate-200 dark:border-slate-700 bg-transparent focus:outline-none focus:border-[#C05800] transition-colors text-slate-900 dark:text-white placeholder:text-slate-300 resize-none"
+                                    className="w-full px-0 py-3 border-b border-border bg-transparent focus:outline-none focus:border-primary transition-colors text-primary font-medium placeholder:text-muted-foreground/30 text-base resize-none"
                                     placeholder="Tell us about your requirements..."
                                 />
                             </div>
@@ -219,7 +212,7 @@ export default function ContactPage() {
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full bg-[#C05800] text-white py-4 text-sm uppercase tracking-widest font-medium hover:bg-[#c19b2f] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group shadow-lg"
+                                className="w-full bg-primary text-primary-foreground py-4 text-[10px] uppercase tracking-[0.2em] font-bold hover:opacity-90 transition-all disabled:opacity-50 flex items-center justify-center gap-3 rounded-sm mt-6"
                             >
                                 {isLoading ? (
                                     <>
@@ -228,8 +221,7 @@ export default function ContactPage() {
                                     </>
                                 ) : (
                                     <>
-                                        Send Message
-                                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                        Send Message <ArrowRight className="w-4 h-4" />
                                     </>
                                 )}
                             </button>

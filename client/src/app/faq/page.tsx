@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navigation from '@/components/Navigation';
+import { useLocation, Link } from 'wouter';
 import { ChevronDown, Plus, Minus, HelpCircle, Mail } from 'lucide-react';
 
 const faqs = [
@@ -61,49 +62,50 @@ export default function FAQPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#FDFBD4] dark:bg-[#38240D] pt-20">
+        <div className="min-h-screen bg-background pt-20 font-sans antialiased text-primary">
             <Navigation />
 
             {/* Hero Section */}
-            <section className="relative overflow-hidden py-16 md:py-24 border-b border-slate-200/50 dark:border-slate-800/50">
-                <div className="absolute inset-0 bg-[#FDFBD4]/50 dark:bg-[#38240D]/50 -z-10" />
-                <div className="max-w-4xl mx-auto px-6 text-center">
+            <section className="py-20 bg-background">
+                <div className="max-w-4xl mx-auto px-8 text-center">
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C05800]/10 text-[#C05800] text-xs font-medium uppercase tracking-wider mb-6"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="inline-flex items-center gap-2 px-4 py-1.5 bg-secondary text-primary text-[9px] font-bold uppercase tracking-widest mb-8 border border-border rounded-sm"
                     >
-                        <HelpCircle className="w-4 h-4" />
+                        <HelpCircle className="w-3.5 h-3.5" />
                         Help Center
                     </motion.div>
                     <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 font-luxury-heading"
+                        className="text-4xl md:text-6xl font-bold text-primary mb-6 tracking-tight"
                     >
-                        Frequently Asked <span className="text-[#C05800] italic">Questions</span>
+                        Frequently Asked <br />
+                        <span className="font-serif italic font-light opacity-80">Questions.</span>
                     </motion.h1>
                     <motion.p
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 }}
-                        className="text-slate-600 dark:text-slate-400 text-lg"
+                        transition={{ delay: 0.1 }}
+                        className="text-primary/60 text-lg font-medium max-w-xl mx-auto"
                     >
-                        Everything you need to know about sourcing with Panora Exports
+                        Find answers to common questions about sourcing, logistics, and verification.
                     </motion.p>
                 </div>
             </section>
 
             {/* FAQ Accordion */}
-            <section className="max-w-3xl mx-auto px-6 py-16">
-                <div className="space-y-12">
+            <section className="max-w-4xl mx-auto px-8 py-12 pb-32">
+                <div className="space-y-16">
                     {faqs.map((section, sIndex) => (
                         <div key={section.category}>
-                            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
-                                <span className="w-8 h-[1px] bg-[#C05800]" />
-                                {section.category}
-                            </h3>
+                            <div className="flex items-center gap-3 mb-8">
+                                <div className="w-8 h-[1.5px] bg-primary" />
+                                <h3 className="text-[9px] font-bold text-primary uppercase tracking-widest">
+                                    {section.category}
+                                </h3>
+                            </div>
                             <div className="space-y-4">
                                 {section.questions.map((item, qIndex) => {
                                     const id = `${sIndex}-${qIndex}`;
@@ -115,19 +117,16 @@ export default function FAQPage() {
                                             initial={{ opacity: 0, y: 10 }}
                                             whileInView={{ opacity: 1, y: 0 }}
                                             viewport={{ once: true }}
-                                            transition={{ delay: qIndex * 0.1 }}
-                                            className="group bg-white dark:bg-[#38240D] border border-slate-200 dark:border-[#C05800]/20 rounded-lg overflow-hidden hover:border-[#C05800]/30 transition-colors"
+                                            className="bg-background border border-border rounded-sm overflow-hidden transition-all shadow-sm"
                                         >
                                             <button
                                                 onClick={() => toggleAccordion(id)}
-                                                className="w-full flex items-center justify-between p-6 text-left"
+                                                className="w-full flex items-center justify-between p-6 md:p-8 text-left"
                                             >
-                                                <span className={`font-medium text-lg transition-colors ${isOpen ? 'text-[#C05800]' : 'text-slate-900 dark:text-white'}`}>
+                                                <span className={`font-bold text-lg md:text-xl tracking-tight transition-colors ${isOpen ? 'text-primary' : 'text-primary'}`}>
                                                     {item.q}
                                                 </span>
-                                                <span className={`flex-shrink-0 ml-4 p-1 rounded-full border transition-all duration-300 ${isOpen ? 'rotate-180 border-[#C05800] text-[#C05800]' : 'border-slate-200 dark:border-slate-700 text-slate-400'}`}>
-                                                    <ChevronDown className="w-5 h-5" />
-                                                </span>
+                                                <ChevronDown className={`w-4 h-4 text-primary/40 transition-transform duration-300 ${isOpen ? 'rotate-180 text-primary' : ''}`} />
                                             </button>
                                             <AnimatePresence>
                                                 {isOpen && (
@@ -135,9 +134,9 @@ export default function FAQPage() {
                                                         initial={{ height: 0, opacity: 0 }}
                                                         animate={{ height: 'auto', opacity: 1 }}
                                                         exit={{ height: 0, opacity: 0 }}
-                                                        transition={{ duration: 0.3 }}
+                                                        transition={{ duration: 0.2 }}
                                                     >
-                                                        <div className="px-6 pb-6 text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-800 pt-4">
+                                                        <div className="px-6 md:px-8 pb-8 text-primary/60 text-[15px] font-medium leading-relaxed border-t border-border pt-6">
                                                             {item.a}
                                                         </div>
                                                     </motion.div>
@@ -153,17 +152,17 @@ export default function FAQPage() {
             </section>
 
             {/* Contact CTA */}
-            <section className="bg-[#38240D] dark:bg-[#38240D]/80 py-16 px-6">
-                <div className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Still have questions?</h2>
-                    <p className="text-slate-400 mb-8">Can't find the answer you're looking for? Please write to our support team.</p>
-                    <a
+            <section className="bg-primary py-20 px-8 relative overflow-hidden">
+                <div className="max-w-4xl mx-auto text-center relative z-10">
+                    <h2 className="text-3xl md:text-5xl font-bold text-secondary mb-6 tracking-tight">Need more help?</h2>
+                    <p className="text-secondary/60 mb-10 text-lg font-medium">Our export specialists are ready to assist with your specific requirements.</p>
+                    <Link
                         href="/contact"
-                        className="inline-flex items-center gap-2 px-8 py-3 bg-[#C05800] text-white hover:bg-[#b09130] transition-colors rounded-sm font-medium uppercase tracking-wider"
+                        className="inline-flex items-center gap-3 px-10 py-4 bg-secondary text-primary hover:opacity-90 transition-all rounded-sm font-bold text-[10px] uppercase tracking-widest"
                     >
-                        <Mail className="w-5 h-5" />
-                        Contact Support
-                    </a>
+                        <Mail className="w-3.5 h-3.5" />
+                        Contact Us
+                    </Link>
                 </div>
             </section>
         </div>

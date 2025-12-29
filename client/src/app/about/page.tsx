@@ -6,128 +6,119 @@ import { Shield, Award, Briefcase, CheckCircle, FileCheck, Globe, Building2, Use
 
 export default function AboutPage() {
     return (
-        <div className="min-h-screen bg-[#FDFBD4] dark:bg-slate-950 pt-20 font-sans selection:bg-[#C05800] selection:text-white">
+        <div className="min-h-screen bg-background pt-20 font-sans antialiased text-primary">
             <Navigation />
 
-            {/* Hero Section - Minimalist & Impactful */}
-            <section className="relative py-32 overflow-hidden">
-                <div className="absolute inset-0 bg-slate-50 dark:bg-slate-900/50 -z-10" />
-                <div className="absolute top-0 right-0 w-1/3 h-full bg-[#C05800]/5 skew-x-12 translate-x-20" />
-
+            {/* Hero Section */}
+            <section className="relative py-24 overflow-hidden bg-background">
                 <div className="max-w-[1400px] mx-auto px-6 md:px-12 relative">
                     <motion.div
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
-                        className="max-w-4xl"
+                        className="max-w-3xl"
                     >
-                        <span className="text-[#C05800] text-xs font-bold tracking-[0.4em] uppercase block mb-6">
-                            Our Essence
-                        </span>
-                        <h1 className="font-luxury-heading text-5xl md:text-7xl text-slate-900 dark:text-white mb-8 italic leading-tight">
-                            Curating Trust in <br />
-                            <span className="text-slate-400 dark:text-slate-600 not-italic">Global Trade.</span>
+                        <div className="flex items-center gap-3 mb-8">
+                            <div className="h-[1.5px] w-8 bg-primary" />
+                            <span className="text-primary text-[9px] font-bold tracking-[0.3em] uppercase">About Us</span>
+                        </div>
+                        <h1 className="text-4xl md:text-6xl font-bold text-primary mb-8 leading-[1.1] tracking-tight">
+                            Reliability in <br />
+                            <span className="font-serif italic font-light opacity-80">Global Trade.</span>
                         </h1>
-                        <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed font-light max-w-2xl border-l-2 border-[#C05800] pl-6">
-                            Panora Exports isn't just a platform; it's a commitment to authenticity. We bridge the gap between India's finest artisans and the world's most discerning buyers through a lens of uncompromised quality.
+                        <p className="text-lg text-primary/70 leading-relaxed font-medium max-w-xl">
+                            Panora Exports is built on a foundation of transparency and quality. We connect world-class manufacturers in India with global buyers, ensuring every shipment meets international standards.
                         </p>
                     </motion.div>
                 </div>
             </section>
 
-            {/* Trust & Psychology Section */}
-            <section className="py-24 bg-white dark:bg-slate-900">
+            {/* Core Values Section */}
+            <section className="py-20 bg-secondary/30">
                 <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-                    <div className="grid md:grid-cols-3 gap-12">
+                    <div className="grid md:grid-cols-3 gap-8">
                         {[
                             {
                                 icon: Shield,
-                                title: "Unwavering Integrity",
-                                desc: "In an industry clouded by uncertainty, we stand as a beacon of transparency. Every supplier is vetted, every product verified."
+                                title: "Integrity",
+                                desc: "Transparency is at the core of our operations. Every supplier is thoroughly vetted to ensure compliance and ethical sourcing."
                             },
                             {
                                 icon: Award,
-                                title: "Curated Excellence",
-                                desc: "We don't chase volume; we pursue value. Our catalog is a handpicked collection of India's premium export capabilities."
+                                title: "Quality Control",
+                                desc: "We maintain strict quality benchmarks. Our catalogue represents the finest export capabilities from across the subcontinent."
                             },
                             {
                                 icon: Globe,
-                                title: "Borderless Vision",
-                                desc: "We understand the psychology of global business—reliability, speed, and precision are the universal languages we speak."
+                                title: "Market Expertise",
+                                desc: "With a deep understanding of international logistics, we provide seamless trade solutions tailored to global requirements."
                             }
                         ].map((item, i) => (
                             <motion.div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 15 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.2, duration: 0.6 }}
-                                className="group p-8 border border-slate-100 dark:border-slate-800 hover:border-[#C05800]/30 hover:bg-[#FDFBD4] dark:hover:bg-slate-800/50 transition-all duration-500"
+                                transition={{ delay: i * 0.1, duration: 0.5 }}
+                                className="p-8 bg-background border border-border hover:border-primary/20 transition-all rounded-sm"
                             >
-                                <div className="w-12 h-12 bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-900 dark:text-white mb-6 group-hover:text-[#C05800] transition-colors">
-                                    <item.icon strokeWidth={1.5} />
+                                <div className="w-12 h-12 bg-secondary flex items-center justify-center text-primary mb-6 transition-all rounded-sm">
+                                    <item.icon strokeWidth={1.5} className="w-5 h-5" />
                                 </div>
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4 group-hover:text-[#C05800] transition-colors">{item.title}</h3>
-                                <p className="text-slate-500 dark:text-slate-400 leading-loose text-sm">{item.desc}</p>
+                                <h3 className="text-lg font-bold text-primary mb-3 uppercase tracking-tight">{item.title}</h3>
+                                <p className="text-primary/60 leading-relaxed text-[13px] font-medium">{item.desc}</p>
                             </motion.div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* Leadership Section - Anonymous Founder */}
-            <section className="py-32 bg-[#38240D] text-white relative overflow-hidden">
-                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5" />
-                <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-                    <div className="w-20 h-1 bg-[#C05800] mx-auto mb-12" />
-                    <h2 className="font-luxury-heading text-4xl md:text-5xl italic mb-12">The Vision</h2>
-
-                    <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-12 md:p-16 max-w-2xl mx-auto hover:border-[#C05800]/50 transition-colors duration-500">
-                        <div className="w-24 h-24 mx-auto bg-[#C05800]/20 rounded-full flex items-center justify-center mb-8 border border-[#C05800]">
-                            <User className="w-10 h-10 text-[#C05800]" strokeWidth={1} />
-                        </div>
-                        <h3 className="text-2xl font-bold mb-2 tracking-wide">Founder</h3>
-                        <p className="text-[#C05800] text-xs uppercase tracking-[0.3em] mb-8">Architect of Panora Exports</p>
-                        <p className="text-slate-300 leading-relaxed font-light italic text-xl">
-                            "In a global market defined by noise, we chose to speak through the silence of perfection. Panora was founded on the belief that a leader's identity is secondary to the integrity of the promises we keep. We don't just move cargo; we anchor trust."
+            {/* Vision Section */}
+            <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
+                <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
+                    <h2 className="text-3xl md:text-4xl font-serif italic mb-10 font-light">Our Commitment</h2>
+                    <div className="space-y-8">
+                        <div className="w-12 h-[1px] bg-secondary/30 mx-auto" />
+                        <p className="text-secondary/80 leading-relaxed font-serif italic text-xl md:text-2xl">
+                            "Our goal is to simplify global procurement. We believe that professional trade is built on the strength of promises kept and the consistency of quality delivered."
                         </p>
+                        <div className="flex flex-col items-center">
+                            <div className="w-10 h-10 bg-secondary/10 rounded-full flex items-center justify-center mb-4 border border-secondary/20">
+                                <User className="w-4 h-4 text-secondary" strokeWidth={1.5} />
+                            </div>
+                            <h3 className="text-xs font-bold tracking-[0.2em] uppercase">Founder Statement</h3>
+                            <p className="text-secondary/40 text-[9px] uppercase tracking-widest mt-1">Panora Exports</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* Certifications & Authenticity */}
-            <section className="py-32 bg-[#FDFBD4] dark:bg-slate-950">
+            {/* Certifications Section */}
+            <section className="py-24 bg-background">
                 <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-                    <div className="flex flex-col md:flex-row justify-between items-end mb-16">
-                        <div className="max-w-2xl">
-                            <div className="flex items-center gap-3 mb-4">
-                                <span className="text-[#C05800] text-xs font-bold tracking-[0.4em] uppercase">Authenticity</span>
-                                <div className="h-px w-12 bg-[#C05800]/30" />
-                                <span className="bg-[#C05800]/10 text-[#C05800] text-[10px] px-2 py-0.5 rounded-full font-bold border border-[#C05800]/20 uppercase tracking-tighter">Verified Institutional Profile</span>
-                            </div>
-                            <h2 className="font-luxury-heading text-4xl md:text-5xl text-slate-900 dark:text-white italic mb-6">Verified & Certified</h2>
-                            <p className="text-slate-600 dark:text-slate-400 text-lg font-light leading-relaxed">
-                                While our leadership prioritizes privacy, our commitment to legal compliance is public and absolute. We hold all necessary licenses issued by the Government of India for international trade operations.
-                            </p>
+                    <div className="mb-16">
+                        <div className="flex items-center gap-3 mb-6">
+                            <div className="h-[1.5px] w-8 bg-primary" />
+                            <span className="text-primary text-[9px] font-bold tracking-[0.3em] uppercase">Compliance</span>
                         </div>
+                        <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6 tracking-tight">Verified & <span className="font-serif italic font-light opacity-80 text-primary">Certified.</span></h2>
+                        <p className="text-primary/60 text-base font-medium leading-relaxed max-w-2xl">
+                            We adhere to all legal requirements for international trade and maintain necessary certifications issued by the Government of India.
+                        </p>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {[
                             { name: "Import Export Code", sub: "DGFT - Govt. of India", icon: FileCheck },
                             { name: "GST Registered", sub: "Tax & Legal Entity", icon: Building2 },
                             { name: "FIEO Member", sub: "Federation of Export Org.", icon: Globe },
-                            { name: "ISO 9001:2015", sub: "Certified Quality Mgmt.", icon: CheckCircle },
+                            { name: "ISO 9001:2015", sub: "Quality Management", icon: CheckCircle },
                         ].map((cert, i) => (
-                            <div key={i} className="aspect-[4/3] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center p-6 text-center hover:shadow-2xl hover:shadow-[#C05800]/5 transition-all duration-500 group relative overflow-hidden">
-                                <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                    <Shield className="w-4 h-4 text-[#C05800]/20" />
+                            <div key={i} className="bg-background border border-border flex flex-col items-center justify-center p-8 text-center hover:border-primary/30 transition-all rounded-sm group">
+                                <div className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center mb-5 group-hover:bg-primary transition-all">
+                                    <cert.icon className="w-5 h-5 text-primary group-hover:text-secondary transition-colors" strokeWidth={1.5} />
                                 </div>
-                                <div className="w-16 h-16 bg-slate-50 dark:bg-slate-800 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-500">
-                                    <cert.icon className="w-8 h-8 text-slate-400 group-hover:text-[#C05800] transition-colors" strokeWidth={1} />
-                                </div>
-                                <div className="h-px w-8 bg-slate-200 dark:bg-slate-700 mb-4 group-hover:bg-[#C05800] transition-colors" />
-                                <h4 className="font-bold text-slate-900 dark:text-white text-sm uppercase tracking-wider mb-1">{cert.name}</h4>
-                                <p className="text-xs text-slate-500 dark:text-slate-400 font-mono">{cert.sub}</p>
+                                <h4 className="font-bold text-primary text-[10px] uppercase tracking-wider mb-2">{cert.name}</h4>
+                                <p className="text-[8px] text-muted-foreground font-bold uppercase tracking-widest">{cert.sub}</p>
                             </div>
                         ))}
                     </div>

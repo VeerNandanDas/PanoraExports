@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, Grid, List, Package } from 'lucide-react';
+import { Search, Grid, List, Package, ArrowRight } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import { motion } from 'framer-motion';
 
@@ -12,7 +12,7 @@ const products = [
         price: '$12.50/meter',
         supplier: 'Gujarat Textiles Ltd',
         image: 'https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?w=600&h=400&fit=crop&q=80',
-        icon: '🧵',
+        icon: Package,
         verified: true,
     },
     {
@@ -22,7 +22,7 @@ const products = [
         price: '$850/ton',
         supplier: 'Punjab Agro Exports',
         image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600&h=400&fit=crop&q=80',
-        icon: '🌾',
+        icon: Package,
         verified: true,
     },
     {
@@ -32,7 +32,7 @@ const products = [
         price: '$24.99/piece',
         supplier: 'Jaipur Hardware Co',
         image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&q=80',
-        icon: '🔧',
+        icon: Package,
         verified: true,
     },
     {
@@ -42,7 +42,7 @@ const products = [
         price: '$180/piece',
         supplier: 'Kanchipuram Weavers',
         image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600&h=400&fit=crop&q=80',
-        icon: '🎨',
+        icon: Package,
         verified: true,
     },
     {
@@ -52,7 +52,7 @@ const products = [
         price: '$4.50/kg',
         supplier: 'Kerala Spice Traders',
         image: 'https://images.unsplash.com/photo-1615485500834-bc10199bc727?w=600&h=400&fit=crop&q=80',
-        icon: '🌶️',
+        icon: Package,
         verified: true,
     },
     {
@@ -62,7 +62,7 @@ const products = [
         price: '$45/sqm',
         supplier: 'Rajasthan Marble Inc',
         image: 'https://images.unsplash.com/photo-1615874694520-474822394e73?w=600&h=400&fit=crop&q=80',
-        icon: '🏗️',
+        icon: Package,
         verified: true,
     },
     {
@@ -72,7 +72,7 @@ const products = [
         price: '$65/piece',
         supplier: 'Kolkata Leather Works',
         image: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=400&fit=crop&q=80',
-        icon: '👜',
+        icon: Package,
         verified: true,
     },
     {
@@ -82,7 +82,7 @@ const products = [
         price: '$28/100ml',
         supplier: 'Tamil Nadu Aromatics',
         image: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=600&h=400&fit=crop&q=80',
-        icon: '🌸',
+        icon: Package,
         verified: true,
     },
     {
@@ -92,7 +92,7 @@ const products = [
         price: '$320/set',
         supplier: 'Jaipur Jewelers',
         image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&h=400&fit=crop&q=80',
-        icon: '💎',
+        icon: Package,
         verified: true,
     },
 ];
@@ -111,46 +111,50 @@ export default function ProductsPage() {
     });
 
     return (
-        <div className="min-h-screen bg-[#FDFBD4] dark:bg-[#38240D] pt-20 font-sans">
+        <div className="min-h-screen bg-background pt-20 font-sans antialiased text-primary">
             <Navigation />
 
-            {/* Compact Hero Section */}
-            <section className="border-b border-slate-200/50 dark:border-slate-800/50 bg-gradient-to-b from-slate-50/50 to-transparent dark:from-slate-900/30">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-8 py-8">
-                    <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-2">
-                        Products
+            {/* Header Section */}
+            <section className="bg-background">
+                <div className="max-w-[1600px] mx-auto px-8 md:px-12 py-16 md:py-20">
+                    <div className="flex items-center gap-3 mb-6">
+                        <div className="h-[1.5px] w-8 bg-primary" />
+                        <span className="text-primary text-[9px] font-bold tracking-[0.3em] uppercase">Product Directory</span>
+                    </div>
+                    <h1 className="text-4xl md:text-6xl font-bold text-primary mb-8 tracking-tight">
+                        Quality <span className="font-serif italic font-light opacity-80">Collection.</span>
                     </h1>
-                    <p className="text-sm text-slate-600 dark:text-slate-400 max-w-xl">
-                        Browse verified products from India's top exporters
+                    <p className="text-lg text-primary/70 max-w-xl font-medium leading-relaxed">
+                        Handpicked selection of premium commodities and industrial goods from certified Indian manufacturers.
                     </p>
                 </div>
             </section>
 
-            {/* Compact Filters */}
-            <section className="border-b border-[#C05800]/20 sticky top-20 bg-[#FDFBD4]/80 dark:bg-[#38240D]/80 backdrop-blur-md z-40">
-                <div className="max-w-[1400px] mx-auto px-6 md:px-8 py-4">
-                    <div className="flex flex-col md:flex-row gap-3 md:items-center md:justify-between">
+            {/* Filters bar */}
+            <section className="border-y border-border sticky top-[72px] bg-background/95 backdrop-blur-md z-40">
+                <div className="max-w-[1600px] mx-auto px-8 md:px-12 py-5">
+                    <div className="flex flex-col lg:flex-row gap-6 lg:items-center lg:justify-between">
                         {/* Search */}
-                        <div className="relative flex-1 max-w-xs">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                        <div className="relative flex-1 max-w-sm group">
+                            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground group-focus-within:text-primary transition-colors" strokeWidth={1.5} />
                             <input
                                 type="text"
                                 placeholder="Search products..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full pl-9 pr-3 py-2 border border-[#C05800]/20 bg-white dark:bg-[#38240D] text-slate-900 dark:text-white text-sm focus:outline-none focus:border-[#C05800] rounded-sm"
+                                className="w-full pl-10 pr-4 py-3 border border-border bg-background text-primary text-sm font-medium focus:outline-none focus:border-primary/40 rounded-sm transition-all"
                             />
                         </div>
 
                         {/* Category Pills */}
-                        <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
+                        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0 scrollbar-hide">
                             {categories.map((category) => (
                                 <button
                                     key={category}
                                     onClick={() => setSelectedCategory(category)}
-                                    className={`px-3 py-1.5 text-xs whitespace-nowrap transition-all rounded-full ${selectedCategory === category
-                                        ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-sm'
-                                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'
+                                    className={`px-5 py-2.5 text-[9px] uppercase tracking-wider font-bold transition-all rounded-sm border whitespace-nowrap ${selectedCategory === category
+                                        ? 'bg-primary text-primary-foreground border-primary'
+                                        : 'bg-background text-muted-foreground border-border hover:border-primary/30 hover:text-primary'
                                         }`}
                                 >
                                     {category}
@@ -159,24 +163,24 @@ export default function ProductsPage() {
                         </div>
 
                         {/* View Toggle */}
-                        <div className="flex items-center gap-1 border border-slate-200 dark:border-slate-700 rounded-sm p-0.5">
+                        <div className="flex items-center gap-1 border border-border rounded-sm p-1 bg-background self-start lg:self-auto">
                             <button
                                 onClick={() => setViewMode('grid')}
-                                className={`p-1.5 rounded-sm transition-colors ${viewMode === 'grid'
-                                    ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900'
-                                    : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'
+                                className={`p-2 rounded-sm transition-all ${viewMode === 'grid'
+                                    ? 'bg-primary text-primary-foreground'
+                                    : 'text-muted-foreground hover:text-primary'
                                     }`}
                             >
-                                <Grid className="w-4 h-4" />
+                                <Grid className="w-3.5 h-3.5" strokeWidth={1.5} />
                             </button>
                             <button
                                 onClick={() => setViewMode('list')}
-                                className={`p-1.5 rounded-sm transition-colors ${viewMode === 'list'
-                                    ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900'
-                                    : 'text-slate-400 hover:text-slate-600 dark:hover:text-slate-300'
+                                className={`p-2 rounded-sm transition-all ${viewMode === 'list'
+                                    ? 'bg-primary text-primary-foreground'
+                                    : 'text-muted-foreground hover:text-primary'
                                     }`}
                             >
-                                <List className="w-4 h-4" />
+                                <List className="w-3.5 h-3.5" strokeWidth={1.5} />
                             </button>
                         </div>
                     </div>
@@ -184,116 +188,99 @@ export default function ProductsPage() {
             </section>
 
             {/* Products Grid/List */}
-            <section className="max-w-[1400px] mx-auto px-6 md:px-8 py-8">
-                <div className="mb-4">
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
-                        {filteredProducts.length} products found
-                    </p>
+            <section className="max-w-[1600px] mx-auto px-8 md:px-12 py-16">
+                <div className="mb-10 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                        <p className="text-[9px] uppercase tracking-widest font-bold text-muted-foreground">
+                            {filteredProducts.length} Items Found
+                        </p>
+                    </div>
                 </div>
 
                 {viewMode === 'grid' ? (
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                         {filteredProducts.map((product, index) => (
                             <motion.a
                                 key={product.id}
                                 href={`/products/${product.id}`}
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.3, delay: index * 0.05 }}
-                                className="group block bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/50 hover:border-slate-300 dark:hover:border-slate-700 transition-all hover:shadow-lg"
+                                transition={{ duration: 0.4, delay: index * 0.03 }}
+                                className="group flex flex-col bg-background border border-border hover:border-primary/20 transition-all rounded-sm overflow-hidden"
                             >
-                                {/* Product Image - Blur to Clear on Hover (Desktop) / Auto-reveal (Mobile) */}
-                                <div className="relative aspect-[16/9] bg-slate-100 dark:bg-slate-900 overflow-hidden">
-                                    <motion.img
+                                <div className="relative aspect-square overflow-hidden bg-secondary">
+                                    <img
                                         src={product.image}
                                         alt={product.name}
-                                        loading="lazy"
-                                        whileInView={{ filter: "blur(0px) grayscale(0%)", scale: 1.05 }}
-                                        viewport={{ once: true, amount: 0.3 }}
-                                        transition={{
-                                            duration: 1.5,
-                                            ease: "easeOut",
-                                            // Only run whileInView animation on mobile
-                                            delay: window.innerWidth <= 768 ? 0.2 : 0
-                                        }}
-                                        className="absolute inset-0 w-full h-full object-cover blur-md grayscale md:group-hover:filter-none md:group-hover:scale-105 transition-all duration-700"
+                                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                     />
-                                    <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
+                                    <div className="absolute top-4 left-4 bg-background/90 backdrop-blur-sm px-3 py-1 text-[8px] font-bold uppercase tracking-wider text-primary border border-border">
+                                        {product.category}
+                                    </div>
+                                    <div className="absolute bottom-4 left-4 right-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                        <div className="bg-primary text-primary-foreground py-3 text-center text-[9px] font-bold uppercase tracking-widest rounded-sm">
+                                            View Details
+                                        </div>
+                                    </div>
                                 </div>
 
-                                {/* Compact Content */}
-                                <div className="p-3">
-                                    <div className="flex items-start justify-between gap-2 mb-2">
-                                        <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                                            {product.category}
-                                        </span>
-                                        {product.verified && (
-                                            <span className="px-1.5 py-0.5 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 text-[9px] font-medium">
-                                                ✓
-                                            </span>
-                                        )}
-                                    </div>
-                                    <h3 className="text-sm font-semibold text-slate-900 dark:text-white mb-1 line-clamp-2 group-hover:text-[#C05800] transition-colors">
+                                <div className="p-6">
+                                    <h3 className="text-sm font-bold text-primary mb-2 group-hover:text-primary-foreground transition-colors uppercase tracking-tight">
                                         {product.name}
                                     </h3>
-                                    <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-2 truncate">{product.supplier}</p>
-                                    <p className="text-base font-bold text-slate-900 dark:text-white">{product.price}</p>
+                                    <p className="text-[9px] uppercase font-bold tracking-widest text-muted-foreground/60 mb-6">
+                                        Supplier: {product.supplier}
+                                    </p>
+
+                                    <div className="flex items-center justify-between pt-4 border-t border-border">
+                                        <div className="flex flex-col">
+                                            <span className="text-[7px] uppercase font-bold text-muted-foreground tracking-widest mb-0.5">Indicative Price</span>
+                                            <span className="text-lg font-bold text-primary">{product.price}</span>
+                                        </div>
+                                        <div className="w-8 h-8 rounded-full border border-border flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all">
+                                            <ArrowRight className="w-3.5 h-3.5 text-primary group-hover:text-secondary group-hover:translate-x-1 transition-all" />
+                                        </div>
+                                    </div>
                                 </div>
                             </motion.a>
                         ))}
                     </div>
                 ) : (
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                         {filteredProducts.map((product, index) => (
                             <motion.a
                                 key={product.id}
                                 href={`/products/${product.id}`}
-                                initial={{ opacity: 0, x: -20 }}
+                                initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.3, delay: index * 0.05 }}
-                                className="group flex gap-4 bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/50 hover:border-slate-300 dark:hover:border-slate-700 transition-all p-4 hover:shadow-lg"
+                                transition={{ duration: 0.4, delay: index * 0.03 }}
+                                className="group flex items-center bg-background border border-border p-5 hover:border-primary/20 transition-all rounded-sm"
                             >
-                                {/* Image Container */}
-                                <div className="relative w-24 h-24 md:w-32 md:h-24 bg-slate-100 dark:bg-slate-900 flex-shrink-0 overflow-hidden rounded-md">
-                                    <motion.img
-                                        src={product.image}
-                                        alt={product.name}
-                                        loading="lazy"
-                                        whileInView={{ filter: "blur(0px) grayscale(0%)", scale: 1.05 }}
-                                        viewport={{ once: true, amount: 0.5 }}
-                                        transition={{
-                                            duration: 1.2,
-                                            ease: "easeOut",
-                                            delay: window.innerWidth <= 768 ? 0.1 : 0
-                                        }}
-                                        className="absolute inset-0 w-full h-full object-cover blur-[1px] md:group-hover:blur-0 md:group-hover:scale-105 transition-all duration-500"
-                                    />
+                                <div className="w-20 h-20 bg-secondary overflow-hidden shrink-0 relative rounded-sm border border-border">
+                                    <img src={product.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                                 </div>
 
-                                {/* Content */}
-                                <div className="flex-1 min-w-0">
-                                    <div className="flex items-start justify-between gap-2 mb-1">
-                                        <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                                            {product.category}
-                                        </span>
-                                        {product.verified && (
-                                            <span className="px-2 py-0.5 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 text-[10px] font-medium">
-                                                ✓ Verified
-                                            </span>
-                                        )}
+                                <div className="ml-8 flex-1">
+                                    <div className="flex items-center gap-4 mb-2">
+                                        <h3 className="text-base font-bold text-primary tracking-tight uppercase group-hover:text-primary/80 transition-colors">{product.name}</h3>
+                                        <span className="px-3 py-0.5 bg-secondary text-primary text-[8px] font-bold uppercase tracking-wider rounded-sm">{product.category}</span>
                                     </div>
-                                    <h3 className="text-base font-semibold text-slate-900 dark:text-white mb-1 group-hover:text-[#C05800] transition-colors">
-                                        {product.name}
-                                    </h3>
-                                    <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">{product.supplier}</p>
-                                    <p className="text-lg font-bold text-slate-900 dark:text-white">{product.price}</p>
+                                    <p className="text-[9px] uppercase font-bold tracking-widest text-muted-foreground/60">Sourced from: {product.supplier}</p>
+                                </div>
+
+                                <div className="text-right ml-8 shrink-0">
+                                    <p className="text-[7px] uppercase font-bold text-muted-foreground tracking-widest mb-1">Unit Price</p>
+                                    <p className="text-xl font-bold text-primary mb-2">{product.price}</p>
+                                    <div className="flex items-center justify-end gap-2 text-[9px] font-bold uppercase tracking-widest text-primary/60 group-hover:text-primary transition-all">
+                                        View <ArrowRight className="w-3.5 h-3.5" />
+                                    </div>
                                 </div>
                             </motion.a>
                         ))}
                     </div>
-                )
-                }
-            </section >
-        </div >
+                )}
+            </section>
+        </div>
     );
 }

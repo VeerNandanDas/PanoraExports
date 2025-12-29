@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Lock, Eye, EyeOff, ArrowRight, Loader2, User, Phone, Globe, Building2, ShoppingBag } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Mail, Lock, Eye, EyeOff, ArrowRight, Loader2, User, Phone, Globe, Building2 } from 'lucide-react';
 import { useLocation, Link } from 'wouter';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-
-type UserRole = 'BUYER' | 'SELLER' | null;
 
 export default function RegisterPage() {
     const [, setLocation] = useLocation();
@@ -14,26 +12,17 @@ export default function RegisterPage() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [selectedRole, setSelectedRole] = useState<UserRole>('BUYER');
-    const [step, setStep] = useState<1 | 2>(2);
 
     const [formData, setFormData] = useState({
-        // Step 1
         name: '',
         email: '',
         phone: '',
         country: 'India',
         password: '',
         confirmPassword: '',
-        // Step 2 (optional based on role)
         companyName: '',
         agreedToTerms: false,
     });
-
-    const handleRoleSelect = (role: UserRole) => {
-        setSelectedRole(role);
-        setTimeout(() => setStep(2), 300);
-    };
 
     const isBusinessEmail = (email: string) => {
         const publicDomains = [
@@ -51,7 +40,7 @@ export default function RegisterPage() {
         if (!isBusinessEmail(formData.email)) {
             toast({
                 title: 'Business Email Required',
-                description: 'Please use your professional business email address to register.',
+                description: 'Registration requires a verified business domain for procurement security.',
                 variant: 'destructive',
             });
             return;
@@ -59,17 +48,8 @@ export default function RegisterPage() {
 
         if (formData.password !== formData.confirmPassword) {
             toast({
-                title: 'Error',
-                description: 'Passwords do not match!',
-                variant: 'destructive',
-            });
-            return;
-        }
-
-        if (formData.password.length < 8) {
-            toast({
-                title: 'Error',
-                description: 'Password must be at least 8 characters long',
+                title: 'Password Mismatch',
+                description: 'The passwords you entered do not match.',
                 variant: 'destructive',
             });
             return;
@@ -84,30 +64,29 @@ export default function RegisterPage() {
                 name: formData.name,
                 phone: formData.phone,
                 country: formData.country,
-                role: selectedRole!,
+                role: 'BUYER',
                 companyName: formData.companyName,
             });
 
             if (error) {
                 toast({
                     title: 'Registration Failed',
-                    description: error.message || 'An error occurred during registration',
+                    description: error.message || 'The system could not process this registration request.',
                     variant: 'destructive',
                 });
             } else {
                 toast({
-                    title: 'Success!',
-                    description: 'Account created successfully. Please check your email to verify your account.',
+                    title: 'Account Created',
+                    description: 'Authorization successful. Please verify via business email.',
                 });
-                // Redirect to verification page or dashboard
                 setTimeout(() => {
                     setLocation('/verification');
                 }, 2000);
             }
         } catch (error: any) {
             toast({
-                title: 'Error',
-                description: error.message || 'An unexpected error occurred',
+                title: 'System Error',
+                description: 'An unexpected error occurred during registration.',
                 variant: 'destructive',
             });
         } finally {
@@ -116,274 +95,237 @@ export default function RegisterPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#FDFBD4] dark:bg-slate-950 flex items-center justify-center px-6 py-12">
-            {/* Background Pattern */}
-            <div className="fixed inset-0 opacity-[0.03] pointer-events-none"
-                style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
-            />
-
-            <div className="w-full max-w-2xl relative z-10">
-                {/* Logo */}
+        <div className="min-h-screen bg-background flex items-center justify-center px-6 py-12 font-sans antialiased text-primary">
+            <div className="w-full max-w-xl relative z-10">
+                {/* Brand Header */}
                 <motion.div
-                    initial={{ opacity: 0, y: -20 }}
+                    initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="text-center mb-12"
+                    className="text-center mb-10"
                 >
                     <Link href="/" className="inline-block">
-                        <h1 className="font-luxury-heading text-5xl italic font-bold text-slate-900 dark:text-white">
-                            Panora<span className="text-[#C05800]">Exports</span>
-                        </h1>
+                        <div className="flex items-baseline gap-1.5 justify-center">
+                            <span className="text-3xl font-bold tracking-tight">Panora</span>
+                            <span className="font-serif italic text-primary text-2xl font-light">exports</span>
+                        </div>
                     </Link>
-                    <p className="text-slate-500 dark:text-slate-400 mt-4 text-sm uppercase tracking-[0.3em]">
-                        Join India's Premier Export Platform
-                    </p>
                 </motion.div>
 
-                {/* Progress Indicator */}
-                <div className="flex items-center justify-center gap-4 mb-8">
-                    <div className={`w-3 h-3 rounded-full transition-all duration-300 ${step >= 1 ? 'bg-[#C05800] scale-125' : 'bg-slate-300 dark:bg-slate-700'}`} />
-                    <div className={`w-16 h-px ${step >= 2 ? 'bg-[#C05800]' : 'bg-slate-300 dark:bg-slate-700'} transition-all duration-300`} />
-                    <div className={`w-3 h-3 rounded-full transition-all duration-300 ${step >= 2 ? 'bg-[#C05800] scale-125' : 'bg-slate-300 dark:bg-slate-700'}`} />
+                {/* Progress State */}
+                <div className="flex items-center justify-center gap-8 mb-10">
+                    <div className="flex items-center gap-2">
+                        <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-[10px] font-bold">1</div>
+                        <span className="text-[9px] font-bold uppercase tracking-widest">Register</span>
+                    </div>
+                    <div className="w-12 h-[1px] bg-border" />
+                    <div className="flex items-center gap-2 opacity-40">
+                        <div className="w-6 h-6 rounded-full bg-secondary text-primary flex items-center justify-center text-[10px] font-bold">2</div>
+                        <span className="text-[9px] font-bold uppercase tracking-widest">Verify</span>
+                    </div>
                 </div>
 
-                <AnimatePresence mode="wait">
-                    {/* Step 1 Removed as per user request to only have Customer accounts */}
+                <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                    className="bg-background border border-border p-8 md:p-12 rounded-sm"
+                >
+                    <div className="mb-10 text-center">
+                        <h2 className="text-xl font-bold uppercase tracking-tight mb-2">Create Account</h2>
+                        <p className="text-muted-foreground text-[10px] font-bold uppercase tracking-widest opacity-60">Join our export network</p>
+                    </div>
 
-                    {step === 2 && (
-                        <motion.div
-                            key="step2"
-                            initial={{ opacity: 0, x: 50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: -50 }}
-                            transition={{ duration: 0.4 }}
-                            className="bg-white dark:bg-slate-900 border border-[#C05800]/20 shadow-2xl p-10 md:p-12"
-                        >
-                            <div className="mb-8">
-                                <h2 className="font-luxury-heading text-3xl md:text-4xl italic text-slate-900 dark:text-white mb-3">
-                                    Create Account
-                                </h2>
-                                <p className="text-slate-500 dark:text-slate-400 text-sm">
-                                    Register for a <span className="text-[#C05800] font-medium italic">Customer</span> account
-                                </p>
+                    <form onSubmit={handleSubmit} className="space-y-8">
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {/* Name Input */}
+                            <div className="space-y-3 group">
+                                <label className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+                                    Full Name
+                                </label>
+                                <div className="relative">
+                                    <User className="absolute left-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground group-focus-within:text-primary transition-colors" strokeWidth={1.5} />
+                                    <input
+                                        type="text"
+                                        required
+                                        value={formData.name}
+                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                        className="w-full pl-8 py-3 border-b border-border bg-transparent focus:outline-none focus:border-primary transition-all text-base font-medium text-primary placeholder:text-muted-foreground/30"
+                                        placeholder="John Doe"
+                                    />
+                                </div>
                             </div>
 
-                            <form onSubmit={handleSubmit} className="space-y-6">
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    {/* Name */}
-                                    <div className="space-y-2 group">
-                                        <label className="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium group-focus-within:text-[#C05800] transition-colors">
-                                            Full Name *
-                                        </label>
-                                        <div className="relative">
-                                            <User className="absolute left-0 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#C05800] transition-colors" />
-                                            <input
-                                                type="text"
-                                                required
-                                                value={formData.name}
-                                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                                className="w-full pl-8 pr-4 py-3 border-b border-slate-200 dark:border-slate-700 bg-transparent focus:outline-none focus:border-[#C05800] transition-colors text-slate-900 dark:text-white"
-                                                placeholder="John Doe"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    {/* Email */}
-                                    <div className="space-y-2 group">
-                                        <label className="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium group-focus-within:text-[#C05800] transition-colors flex justify-between">
-                                            <span>Email Address *</span>
-                                            <span className="text-[10px] text-[#C05800] lowercase italic tracking-normal">Business emails only</span>
-                                        </label>
-                                        <div className="relative">
-                                            <Mail className="absolute left-0 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#C05800] transition-colors" />
-                                            <input
-                                                type="email"
-                                                required
-                                                value={formData.email}
-                                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                                className="w-full pl-8 pr-4 py-3 border-b border-slate-200 dark:border-slate-700 bg-transparent focus:outline-none focus:border-[#C05800] transition-colors text-slate-900 dark:text-white"
-                                                placeholder="john@company.com"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    {/* Phone */}
-                                    <div className="space-y-2 group">
-                                        <label className="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium group-focus-within:text-[#C05800] transition-colors">
-                                            Phone Number *
-                                        </label>
-                                        <div className="relative">
-                                            <Phone className="absolute left-0 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#C05800] transition-colors" />
-                                            <input
-                                                type="tel"
-                                                required
-                                                value={formData.phone}
-                                                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                                className="w-full pl-8 pr-4 py-3 border-b border-slate-200 dark:border-slate-700 bg-transparent focus:outline-none focus:border-[#C05800] transition-colors text-slate-900 dark:text-white"
-                                                placeholder="+91 98765 43210"
-                                            />
-                                        </div>
-                                    </div>
-
-                                    {/* Country */}
-                                    <div className="space-y-2 group">
-                                        <label className="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium group-focus-within:text-[#C05800] transition-colors">
-                                            Country *
-                                        </label>
-                                        <div className="relative">
-                                            <Globe className="absolute left-0 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#C05800] transition-colors" />
-                                            <select
-                                                required
-                                                value={formData.country}
-                                                onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                                                className="w-full pl-8 pr-4 py-3 border-b border-slate-200 dark:border-slate-700 bg-transparent focus:outline-none focus:border-[#C05800] transition-colors text-slate-900 dark:text-white appearance-none"
-                                            >
-                                                <option value="India">India</option>
-                                                <option value="USA">United States</option>
-                                                <option value="UK">United Kingdom</option>
-                                                <option value="UAE">UAE</option>
-                                                <option value="Australia">Australia</option>
-                                                <option value="Canada">Canada</option>
-                                                <option value="Other">Other</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Company Name (for sellers mainly) */}
-                                {selectedRole === 'SELLER' && (
-                                    <div className="space-y-2 group">
-                                        <label className="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium group-focus-within:text-[#C05800] transition-colors">
-                                            Company Name *
-                                        </label>
-                                        <div className="relative">
-                                            <Building2 className="absolute left-0 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#C05800] transition-colors" />
-                                            <input
-                                                type="text"
-                                                required={selectedRole === 'SELLER'}
-                                                value={formData.companyName}
-                                                onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                                                className="w-full pl-8 pr-4 py-3 border-b border-slate-200 dark:border-slate-700 bg-transparent focus:outline-none focus:border-[#C05800] transition-colors text-slate-900 dark:text-white"
-                                                placeholder="Your Company Pvt Ltd"
-                                            />
-                                        </div>
-                                    </div>
-                                )}
-
-                                <div className="grid md:grid-cols-2 gap-6">
-                                    {/* Password */}
-                                    <div className="space-y-2 group">
-                                        <label className="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium group-focus-within:text-[#C05800] transition-colors">
-                                            Password *
-                                        </label>
-                                        <div className="relative">
-                                            <Lock className="absolute left-0 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#C05800] transition-colors" />
-                                            <input
-                                                type={showPassword ? 'text' : 'password'}
-                                                required
-                                                value={formData.password}
-                                                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                                className="w-full pl-8 pr-12 py-3 border-b border-slate-200 dark:border-slate-700 bg-transparent focus:outline-none focus:border-[#C05800] transition-colors text-slate-900 dark:text-white"
-                                                placeholder="••••••••"
-                                                minLength={8}
-                                            />
-                                            <button
-                                                type="button"
-                                                onClick={() => setShowPassword(!showPassword)}
-                                                className="absolute right-0 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#C05800] transition-colors"
-                                            >
-                                                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    {/* Confirm Password */}
-                                    <div className="space-y-2 group">
-                                        <label className="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-medium group-focus-within:text-[#C05800] transition-colors">
-                                            Confirm Password *
-                                        </label>
-                                        <div className="relative">
-                                            <Lock className="absolute left-0 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#C05800] transition-colors" />
-                                            <input
-                                                type={showConfirmPassword ? 'text' : 'password'}
-                                                required
-                                                value={formData.confirmPassword}
-                                                onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                                                className="w-full pl-8 pr-12 py-3 border-b border-slate-200 dark:border-slate-700 bg-transparent focus:outline-none focus:border-[#C05800] transition-colors text-slate-900 dark:text-white"
-                                                placeholder="••••••••"
-                                                minLength={8}
-                                            />
-                                            <button
-                                                type="button"
-                                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                                className="absolute right-0 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#C05800] transition-colors"
-                                            >
-                                                {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Terms Agreement */}
-                                <div className="flex items-start gap-3">
+                            {/* Email Input */}
+                            <div className="space-y-3 group">
+                                <label className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+                                    Business Email
+                                </label>
+                                <div className="relative">
+                                    <Mail className="absolute left-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground group-focus-within:text-primary transition-colors" strokeWidth={1.5} />
                                     <input
-                                        type="checkbox"
+                                        type="email"
                                         required
-                                        checked={formData.agreedToTerms}
-                                        onChange={(e) => setFormData({ ...formData, agreedToTerms: e.target.checked })}
-                                        className="mt-1 w-4 h-4 border border-slate-300 dark:border-slate-600 rounded accent-[#C05800]"
+                                        value={formData.email}
+                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                        className="w-full pl-8 py-3 border-b border-border bg-transparent focus:outline-none focus:border-primary transition-all text-base font-medium text-primary placeholder:text-muted-foreground/30"
+                                        placeholder="john@company.com"
                                     />
-                                    <label className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                        I agree to Panora Exports{' '}
-                                        <Link href="/terms" className="text-[#C05800] hover:underline">
-                                            Terms of Service
-                                        </Link>{' '}
-                                        and{' '}
-                                        <Link href="/privacy" className="text-[#C05800] hover:underline">
-                                            Privacy Policy
-                                        </Link>
-                                    </label>
                                 </div>
+                            </div>
+                        </div>
 
-                                {/* Submit Button */}
-                                <button
-                                    type="submit"
-                                    disabled={isLoading}
-                                    className="w-full bg-[#C05800] text-white py-4 text-sm uppercase tracking-widest font-medium hover:bg-[#c19b2f] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group shadow-lg hover:shadow-xl mt-8"
-                                >
-                                    {isLoading ? (
-                                        <>
-                                            <Loader2 className="w-4 h-4 animate-spin" />
-                                            Creating Account...
-                                        </>
-                                    ) : (
-                                        <>
-                                            Create Account
-                                            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                        </>
-                                    )}
-                                </button>
-                            </form>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {/* Phone Input */}
+                            <div className="space-y-3 group">
+                                <label className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+                                    Phone Number
+                                </label>
+                                <div className="relative">
+                                    <Phone className="absolute left-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground group-focus-within:text-primary transition-colors" strokeWidth={1.5} />
+                                    <input
+                                        type="tel"
+                                        required
+                                        value={formData.phone}
+                                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                        className="w-full pl-8 py-3 border-b border-border bg-transparent focus:outline-none focus:border-primary transition-all text-base font-medium text-primary placeholder:text-muted-foreground/30"
+                                        placeholder="+91 1234567890"
+                                    />
+                                </div>
+                            </div>
 
-                {/* Back to Home */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    className="text-center mt-8"
-                >
-                    <Link
-                        href="/"
-                        className="text-sm text-slate-500 dark:text-slate-400 hover:text-[#C05800] transition-colors inline-flex items-center gap-2"
-                    >
-                        ← Back to Home
-                    </Link>
+                            {/* Country Select */}
+                            <div className="space-y-3 group">
+                                <label className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+                                    Region
+                                </label>
+                                <div className="relative">
+                                    <Globe className="absolute left-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground group-focus-within:text-primary transition-colors" strokeWidth={1.5} />
+                                    <select
+                                        required
+                                        value={formData.country}
+                                        onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                                        className="w-full pl-8 py-3 border-b border-border bg-transparent focus:outline-none focus:border-primary transition-all text-base font-medium text-primary appearance-none cursor-pointer"
+                                    >
+                                        <option value="India">India</option>
+                                        <option value="USA">USA / Canada</option>
+                                        <option value="UK">UK / Europe</option>
+                                        <option value="UAE">UAE / Middle East</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Company Name */}
+                        <div className="space-y-3 group">
+                            <label className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+                                Company Name
+                            </label>
+                            <div className="relative">
+                                <Building2 className="absolute left-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground group-focus-within:text-primary transition-colors" strokeWidth={1.5} />
+                                <input
+                                    type="text"
+                                    required
+                                    value={formData.companyName}
+                                    onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                                    className="w-full pl-8 py-3 border-b border-border bg-transparent focus:outline-none focus:border-primary transition-all text-base font-medium text-primary placeholder:text-muted-foreground/30"
+                                    placeholder="Enter your company name"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-8">
+                            {/* Password Field */}
+                            <div className="space-y-3 group">
+                                <label className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+                                    Password
+                                </label>
+                                <div className="relative">
+                                    <Lock className="absolute left-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground group-focus-within:text-primary transition-colors" strokeWidth={1.5} />
+                                    <input
+                                        type={showPassword ? 'text' : 'password'}
+                                        required
+                                        value={formData.password}
+                                        onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                                        className="w-full pl-8 pr-12 py-3 border-b border-border bg-transparent focus:outline-none focus:border-primary transition-all text-base font-medium text-primary placeholder:text-muted-foreground/30"
+                                        placeholder="••••••••"
+                                        minLength={8}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-0 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors"
+                                    >
+                                        {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Confirm Password */}
+                            <div className="space-y-3 group">
+                                <label className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
+                                    Confirm Password
+                                </label>
+                                <div className="relative">
+                                    <Lock className="absolute left-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground group-focus-within:text-primary transition-colors" strokeWidth={1.5} />
+                                    <input
+                                        type={showConfirmPassword ? 'text' : 'password'}
+                                        required
+                                        value={formData.confirmPassword}
+                                        onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                                        className="w-full pl-8 pr-12 py-3 border-b border-border bg-transparent focus:outline-none focus:border-primary transition-all text-base font-medium text-primary placeholder:text-muted-foreground/30"
+                                        placeholder="••••••••"
+                                        minLength={8}
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                        className="absolute right-0 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors"
+                                    >
+                                        {showConfirmPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex items-start gap-3 p-4 bg-secondary/50 rounded-sm">
+                            <input
+                                type="checkbox"
+                                required
+                                checked={formData.agreedToTerms}
+                                onChange={(e) => setFormData({ ...formData, agreedToTerms: e.target.checked })}
+                                className="mt-1 w-3.5 h-3.5 border border-border bg-background rounded-none accent-primary"
+                            />
+                            <label className="text-[9px] font-bold text-muted-foreground leading-relaxed uppercase tracking-wider">
+                                I agree to the <Link href="/terms" className="text-primary hover:underline">Terms</Link> and <Link href="/privacy" className="text-primary hover:underline">Privacy Policy</Link>.
+                            </label>
+                        </div>
+
+                        <button
+                            type="submit"
+                            disabled={isLoading}
+                            className="w-full bg-primary text-primary-foreground py-4 text-[10px] font-bold uppercase tracking-[0.2em] hover:opacity-90 transition-all disabled:opacity-50 flex items-center justify-center gap-3 rounded-sm"
+                        >
+                            {isLoading ? (
+                                <Loader2 className="w-4 h-4 animate-spin" />
+                            ) : (
+                                <>
+                                    Create Account <ArrowRight className="w-4 h-4" />
+                                </>
+                            )}
+                        </button>
+                    </form>
                 </motion.div>
+
+                <div className="text-center mt-10">
+                    <Link
+                        href="/auth/login"
+                        className="text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground hover:text-primary transition-all opacity-60"
+                    >
+                        Already have an account? <span className="underline">Login here</span>
+                    </Link>
+                </div>
             </div>
         </div>
     );
