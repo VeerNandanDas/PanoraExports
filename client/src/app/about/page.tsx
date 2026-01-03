@@ -19,15 +19,15 @@ export default function AboutPage() {
                         className="max-w-3xl"
                     >
                         <div className="flex items-center gap-3 mb-8">
-                            <div className="h-[1.5px] w-8 bg-primary" />
-                            <span className="text-primary text-[9px] font-bold tracking-[0.3em] uppercase">About Us</span>
+                            <div className="h-[1.5px] w-8 bg-secondary" />
+                            <span className="text-secondary text-[9px] font-bold tracking-[0.3em] uppercase">Corporate Profile</span>
                         </div>
                         <h1 className="text-4xl md:text-6xl font-bold text-primary mb-8 leading-[1.1] tracking-tight">
-                            Reliability in <br />
-                            <span className="font-serif italic font-light opacity-80">Global Trade.</span>
+                            Institutional <br />
+                            <span className="font-serif italic font-light text-secondary">Trade Compliance.</span>
                         </h1>
-                        <p className="text-lg text-primary/70 leading-relaxed font-medium max-w-xl">
-                            Panora Exports is built on a foundation of transparency and quality. We connect world-class manufacturers in India with global buyers, ensuring every shipment meets international standards.
+                        <p className="text-lg text-primary/80 leading-relaxed font-medium max-w-xl">
+                            Panora Exports operates at the intersection of precision logistics and global trade integrity. We specialize in scaling high-volume Indian production for the MENA and European corridors, ensuring rigorous adherence to international enterprise standards.
                         </p>
                     </motion.div>
                 </div>
@@ -59,9 +59,9 @@ export default function AboutPage() {
                                 initial={{ opacity: 0, y: 15 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 transition={{ delay: i * 0.1, duration: 0.5 }}
-                                className="p-8 bg-background border border-border hover:border-primary/20 transition-all rounded-sm"
+                                className="p-8 bg-background border border-secondary/20 hover:border-secondary transition-all rounded-sm"
                             >
-                                <div className="w-12 h-12 bg-secondary flex items-center justify-center text-primary mb-6 transition-all rounded-sm">
+                                <div className="w-12 h-12 bg-secondary/10 flex items-center justify-center text-secondary mb-6 transition-all rounded-sm border border-secondary/20">
                                     <item.icon strokeWidth={1.5} className="w-5 h-5" />
                                 </div>
                                 <h3 className="text-lg font-bold text-primary mb-3 uppercase tracking-tight">{item.title}</h3>
@@ -75,11 +75,11 @@ export default function AboutPage() {
             {/* Vision Section */}
             <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
                 <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
-                    <h2 className="text-3xl md:text-4xl font-serif italic mb-10 font-light">Our Commitment</h2>
+                    <h2 className="text-3xl md:text-4xl font-serif italic mb-10 font-light text-secondary">Our Commitment</h2>
                     <div className="space-y-8">
                         <div className="w-12 h-[1px] bg-secondary/30 mx-auto" />
-                        <p className="text-primary-foreground/80 leading-relaxed font-serif italic text-xl md:text-2xl">
-                            "Our goal is to simplify global procurement. We believe that professional trade is built on the strength of promises kept and the consistency of quality delivered."
+                        <p className="text-white/90 leading-relaxed font-serif italic text-xl md:text-2xl">
+                            "Our mandate is to formalize global procurement protocols. We believe architectural trade is founded on the precision of fulfillment and the unwavering consistency of verified quality."
                         </p>
                         <div className="flex flex-col items-center">
                             <div className="w-10 h-10 bg-primary-foreground/10 rounded-full flex items-center justify-center mb-4 border border-primary-foreground/20">
@@ -97,10 +97,10 @@ export default function AboutPage() {
                 <div className="max-w-[1400px] mx-auto px-6 md:px-12">
                     <div className="mb-16">
                         <div className="flex items-center gap-3 mb-6">
-                            <div className="h-[1.5px] w-8 bg-primary" />
-                            <span className="text-primary text-[9px] font-bold tracking-[0.3em] uppercase">Compliance</span>
+                            <div className="h-[1.5px] w-8 bg-secondary" />
+                            <span className="text-secondary text-[9px] font-bold tracking-[0.3em] uppercase">Compliance Framework</span>
                         </div>
-                        <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6 tracking-tight">Verified & <span className="font-serif italic font-light opacity-80 text-primary">Certified.</span></h2>
+                        <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6 tracking-tight">Verified & <span className="font-serif italic font-light text-secondary">Authorized.</span></h2>
                         <p className="text-primary/60 text-base font-medium leading-relaxed max-w-2xl">
                             We adhere to all legal requirements for international trade and maintain necessary certifications issued by the Government of India.
                         </p>

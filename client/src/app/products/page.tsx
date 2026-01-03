@@ -101,7 +101,7 @@ export default function ProductsPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-4xl md:text-6xl font-black text-primary mb-6 tracking-tighter uppercase"
                     >
-                        Export <span className="font-serif italic font-light opacity-80 text-primary">Inventory</span>
+                        Institutional <span className="font-serif italic font-light text-secondary">Trade Repository</span>
                     </motion.h1>
                     <div className="flex flex-col md:flex-row gap-6 justify-between items-end">
                         <p className="text-primary/60 text-lg font-medium max-w-xl">
@@ -138,10 +138,10 @@ export default function ProductsPage() {
                                     key={cat}
                                     onClick={() => setSelectedCategory(cat)}
                                     className={cn(
-                                        "px-4 py-2 text-[10px] font-bold uppercase tracking-widest rounded-full transition-all border border-transparent whitespace-nowrap",
+                                        "px-4 py-2 text-[10px] font-bold uppercase tracking-widest rounded-sm transition-all border border-transparent whitespace-nowrap",
                                         selectedCategory === cat
-                                            ? "bg-primary text-primary-foreground"
-                                            : "bg-secondary text-primary/70 hover:text-primary hover:border-primary/20"
+                                            ? "bg-secondary text-primary"
+                                            : "bg-primary/5 text-primary/70 hover:text-primary hover:border-secondary/20"
                                     )}
                                 >
                                     {cat}
@@ -151,12 +151,12 @@ export default function ProductsPage() {
                     </div>
 
                     {/* View Toggle */}
-                    <div className="flex items-center gap-2 p-1 bg-secondary/10 rounded-full border border-border/50">
+                    <div className="flex items-center gap-2 p-1 bg-primary/5 rounded-sm border border-secondary/20">
                         <button
                             onClick={() => setViewMode('grid')}
                             className={cn(
-                                "p-2 rounded-full transition-all",
-                                viewMode === 'grid' ? "bg-background shadow-sm text-primary" : "text-primary/40 hover:text-primary"
+                                "p-2 rounded-sm transition-all",
+                                viewMode === 'grid' ? "bg-secondary text-primary" : "text-primary/40 hover:text-primary"
                             )}
                         >
                             <LayoutGrid className="w-4 h-4" />
@@ -164,8 +164,8 @@ export default function ProductsPage() {
                         <button
                             onClick={() => setViewMode('list')}
                             className={cn(
-                                "p-2 rounded-full transition-all",
-                                viewMode === 'list' ? "bg-background shadow-sm text-primary" : "text-primary/40 hover:text-primary"
+                                "p-2 rounded-sm transition-all",
+                                viewMode === 'list' ? "bg-secondary text-primary" : "text-primary/40 hover:text-primary"
                             )}
                         >
                             <List className="w-4 h-4" />
@@ -203,8 +203,8 @@ export default function ProductsPage() {
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
                                 {product.verified && (
-                                    <div className="absolute top-3 left-3 bg-background/90 backdrop-blur-sm px-2 py-1 text-[8px] font-bold uppercase tracking-widest border border-border">
-                                        Verified
+                                    <div className="absolute top-3 left-3 bg-secondary text-primary px-2 py-1 text-[8px] font-bold uppercase tracking-widest border border-secondary/20">
+                                        Verified Directive
                                     </div>
                                 )}
                             </div>
@@ -229,10 +229,10 @@ export default function ProductsPage() {
 
                                 <div className={cn("mt-auto flex items-end justify-between", viewMode === 'list' && "pb-2")}>
                                     <div>
-                                        <p className="text-[9px] text-primary/40 font-bold uppercase tracking-widest mb-0.5">Price</p>
+                                        <p className="text-[9px] text-secondary font-bold uppercase tracking-widest mb-0.5">Unit Price</p>
                                         <p className="text-xl font-bold text-primary">{product.price}</p>
                                     </div>
-                                    <Link href={`/products/${product.id}`} className="w-10 h-10 bg-primary text-primary-foreground flex items-center justify-center rounded-full hover:scale-110 transition-all">
+                                    <Link href={`/products/${product.id}`} className="w-10 h-10 bg-[hsl(var(--success))] text-white flex items-center justify-center rounded-sm hover:brightness-110 transition-all shadow-md">
                                         <ArrowRight className="w-4 h-4" />
                                     </Link>
                                 </div>

@@ -11,19 +11,30 @@ import {
   FileCheck,
   Shield,
   Globe,
-  ArrowRight,
-  TrendingUp,
-  Box
+  ArrowRight
 } from "lucide-react";
 import { Link } from "wouter";
 import Navigation from "@/components/Navigation";
+import Autoplay from "embla-carousel-autoplay";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
-// Assets
-import containerShip from "@assets/stock_images/luxury_container_shi_990cf15c.jpg";
-import logisticsImage from "@assets/stock_images/modern_automated_log_e4071bac.jpg";
 const heroImage = "/aeroplane.jpg";
 
-// --- Components ---
+const productsList = [
+  { title: "Cotton Textiles", img: "https://plus.unsplash.com/premium_photo-1673125287363-b4e837f1215f?q=80&w=687&auto=format&fit=crop" },
+  { title: "Towels & Fabrics", img: "https://images.unsplash.com/photo-1617811449482-31093c8cee16?q=80&w=735&auto=format&fit=crop" },
+  { title: "Agro Commodities", img: "https://plus.unsplash.com/premium_photo-1674624682288-085eff4f98da?q=80&w=687&auto=format&fit=crop" },
+  { title: "Industrial Goods", img: "https://images.unsplash.com/photo-1623610590744-fce60d8dd48c?q=80&w=687&auto=format&fit=crop" },
+  { title: "Organic Spices", img: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?q=80&w=800&auto=format&fit=crop" },
+  { title: "Leather Goods", img: "https://images.unsplash.com/photo-1547949003-9792a18a2601?q=80&w=2070&auto=format&fit=crop" },
+  { title: "Handicrafts", img: "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?q=80&w=2070&auto=format&fit=crop" }
+];
 
 const Grain = () => (
   <div className="fixed inset-0 pointer-events-none opacity-[0.03] z-[9999] mix-blend-overlay"
@@ -51,7 +62,6 @@ const ExportCard = ({ icon: Icon, title, desc }: { icon: any, title: string, des
 );
 
 export default function LuxuryLanding() {
-
   return (
     <div className="font-sans bg-background text-foreground selection:bg-primary selection:text-primary-foreground antialiased">
       <Grain />
@@ -68,7 +78,6 @@ export default function LuxuryLanding() {
             alt="Hero Background"
             className="absolute inset-0 w-full h-full object-cover scale-[1.01] brightness-[1.1]"
           />
-          {/* Subtle gradient overlay for text readability */}
           <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent z-10" />
         </div>
 
@@ -79,44 +88,43 @@ export default function LuxuryLanding() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="max-w-2xl"
           >
-            <div className="inline-flex items-center gap-3 mb-8 px-4 py-1.5 bg-primary/5 text-primary border border-primary/10 rounded-sm">
-              <Globe className="w-3.5 h-3.5 opacity-70" />
-              <span className="text-[9px] font-bold uppercase tracking-[0.2em]">Verified Export Partner</span>
+            <div className="inline-flex items-center gap-3 mb-8 px-4 py-1.5 bg-secondary/10 text-secondary border border-secondary/20 rounded-sm">
+              <Globe className="w-3.5 h-3.5 opacity-80" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Authorized Global Trade Partner</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold text-primary mb-8 leading-[1.1] tracking-tight">
-              Quality <br />
-              <span className="font-serif italic font-light opacity-80">Exports</span> Simplified.
+              Institutional <br />
+              <span className="font-serif italic font-light text-secondary">Excellence</span> in Trade.
             </h1>
 
-            <p className="text-lg md:text-xl text-primary opacity-70 mb-12 font-medium max-w-lg leading-relaxed">
-              Leading sourcing and logistics partner for Indian textiles, agro-commodities, and industrial goods for international markets.
+            <p className="text-lg md:text-xl text-primary/80 mb-12 font-medium max-w-lg leading-relaxed">
+              Standardized supply chain solutions for the Middle-East and Global Markets. Specializing in high-volume Textiles, Agro-Commodities, and Industrial Sourcing.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4">
-              <Link href="/contact" className="w-full sm:w-auto px-10 py-4 bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-[0.2em] hover:opacity-90 transition-all flex items-center justify-center gap-2">
-                Get Started <ArrowRight className="w-3.5 h-3.5" />
+              <Link href="/contact" className="w-full sm:w-auto px-10 py-4 bg-[hsl(var(--success))] text-white text-[10px] font-bold uppercase tracking-[0.2em] hover:brightness-110 transition-all flex items-center justify-center gap-2 rounded-sm shadow-lg shadow-green-900/10">
+                Confirm Order / Get Quote <ArrowRight className="w-3.5 h-3.5" />
               </Link>
               <a
                 href="https://wa.me/919876543210"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto px-10 py-4 bg-background text-primary text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-green-600 hover:border-radius-[80px] hover:text-white transition-all border border-border flex items-center justify-center gap-2 "
+                className="w-full sm:w-auto px-10 py-4 bg-background text-primary text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-muted transition-all border border-border flex items-center justify-center gap-2 rounded-sm"
               >
-                <MessageCircle className="w-3.5 h-3.5" />
-                WhatsApp
+                <MessageCircle className="w-3.5 h-3.5 text-[hsl(var(--success))]" />
+                Priority Trade Support
               </a>
             </div>
 
-            {/* Bottom Metrics */}
-            <div className="mt-16 flex items-center gap-12 border-t border-border pt-8">
+            <div className="mt-16 flex items-center gap-12 border-t border-secondary/20 pt-8">
               <div>
-                <div className="text-2xl font-bold text-primary tracking-tight">100%</div>
-                <div className="text-[9px] uppercase tracking-[0.1em] font-bold text-muted-foreground mt-1">Quality Goods</div>
+                <div className="text-2xl font-bold text-secondary tracking-tight">100%</div>
+                <div className="text-[9px] uppercase tracking-[0.1em] font-bold text-primary/60 mt-1">QC Standardized</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-primary tracking-tight">Global</div>
-                <div className="text-[9px] uppercase tracking-[0.1em] font-bold text-muted-foreground mt-1">Logistics Support</div>
+                <div className="text-2xl font-bold text-secondary tracking-tight">Tier-1</div>
+                <div className="text-[9px] uppercase tracking-[0.1em] font-bold text-primary/60 mt-1">Logistics Framework</div>
               </div>
             </div>
           </motion.div>
@@ -149,28 +157,28 @@ export default function LuxuryLanding() {
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <div className="flex items-center gap-3 mb-8">
-              <div className="w-10 h-[1.5px] bg-primary" />
-              <h2 className="text-[10px] font-bold text-primary uppercase tracking-[0.3em]">Our Values</h2>
+              <div className="w-10 h-[1.5px] bg-secondary" />
+              <h2 className="text-[10px] font-bold text-secondary uppercase tracking-[0.3em]">Corporate Standards</h2>
             </div>
 
-            <h3 className="text-4xl md:text-5xl font-bold text-foreground mb-10 leading-tight tracking-tight">
-              Building <span className="font-serif italic font-light opacity-80 text-foreground">Global</span> Trust.
+            <h3 className="text-4xl md:text-5xl font-bold text-primary mb-10 leading-tight tracking-tight">
+              Institutional <span className="font-serif italic font-light text-secondary">Integrity</span> & Precision.
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {[
-                "Quality Supply",
-                "Export Packaging",
-                "Trial Shipments",
-                "Volume Pricing",
-                "Global Logistics",
-                "Ethical Sourcing"
+                "Tier-I Quality Assurance",
+                "Export-Grade Packaging",
+                "Bespoke Trial Shipments",
+                "Enterprise Volume Pricing",
+                "Optimized Global Logistics",
+                "Ethically Audited Sourcing"
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-4 group">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/5 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all">
-                    <CheckCircle2 strokeWidth={2} className="w-3.5 h-3.5" />
+                  <div className="flex-shrink-0 w-6 h-6 rounded-sm bg-secondary/10 flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white transition-all">
+                    <CheckCircle2 strokeWidth={2} className="w-3.5 h-3.5 text-[hsl(var(--success))]" />
                   </div>
-                  <span className="text-base text-foreground/70 font-medium tracking-tight group-hover:text-primary transition-colors">{item}</span>
+                  <span className="text-base text-primary/80 font-medium tracking-tight group-hover:text-secondary transition-colors">{item}</span>
                 </div>
               ))}
             </div>
@@ -184,130 +192,156 @@ export default function LuxuryLanding() {
       </Section>
 
       {/* 4. PRODUCT PREVIEW */}
-      <Section id="products" className="bg-secondary/30 py-24">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-          <div>
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-[1.5px] bg-primary" />
-              <h2 className="text-[10px] font-bold text-foreground uppercase tracking-[0.3em]">Our Collection</h2>
-            </div>
-            <h3 className="text-3xl md:text-5xl font-bold text-foreground tracking-tight">Browse <span className="font-serif italic font-light opacity-80">Products.</span></h3>
-          </div>
-          <Link href="/products" className="group text-foreground font-bold text-[10px] uppercase tracking-[0.2em] flex items-center gap-2 hover:gap-4 transition-all border-b border-border pb-1.5">
-            View All Products <ArrowRight className="w-4 h-4" />
-          </Link>
+      <Section id="products" className="bg-primary py-24 overflow-hidden border-y border-secondary/20">
+        <div className="text-center mb-16">
+          <h3 className="text-4xl md:text-6xl font-bold text-white tracking-tight uppercase">Premier <span className="font-serif italic font-light text-secondary">Trade Inventory</span></h3>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {[
-            { title: "Cotton Textiles", img: "https://plus.unsplash.com/premium_photo-1673125287363-b4e837f1215f?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-            { title: "Towels & Fabrics", img: "https://images.unsplash.com/photo-1617811449482-31093c8cee16?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-            { title: "Agro Commodities", img: "https://plus.unsplash.com/premium_photo-1674624682288-085eff4f98da?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
-            { title: "Industrial Goods", img: "https://images.unsplash.com/photo-1623610590744-fce60d8dd48c?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" }
-          ].map((item, i) => (
-            <Link key={i} href="/products" className="group block">
-              <div className="aspect-[1/1] overflow-hidden bg-card mb-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                <img
-                  src={item.img}
-                  alt={item.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-              </div>
-              <h3 className="text-xs font-bold text-foreground uppercase tracking-wider text-center group-hover:text-primary transition-colors">{item.title}</h3>
-            </Link>
-          ))}
+        <div className="relative max-w-5xl mx-auto px-4 md:px-0">
+          <Carousel
+            opts={{
+              align: "center",
+              loop: true,
+            }}
+            plugins={[
+              Autoplay({
+                delay: 4000,
+                stopOnInteraction: false,
+              }),
+            ]}
+            className="w-full"
+          >
+            <CarouselContent className="">
+              {productsList.map((item, i) => (
+                <CarouselItem key={i} className="basis-full">
+                  <Link href="/products" className="group block relative">
+                    <div className="aspect-[16/9] overflow-hidden bg-card rounded-2xl shadow-2xl relative ring-1 ring-primary/10">
+                      <img
+                        src={item.img}
+                        alt={item.title}
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 md:p-12">
+                        <motion.div
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 0.2 }}
+                        >
+                          <h4 className="text-2xl md:text-4xl font-bold text-white mb-4 uppercase tracking-tighter">{item.title}</h4>
+                          <span className="inline-flex items-center gap-2 text-[10px] font-bold text-secondary uppercase tracking-[0.3em] group-hover:text-white transition-colors">
+                            Technical Specifications <ArrowRight className="w-4 h-4" />
+                          </span>
+                        </motion.div>
+                      </div>
+                    </div>
+                  </Link>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="absolute -left-4 md:-left-20 top-1/2 -translate-y-1/2">
+              <CarouselPrevious className="h-12 w-12 border-primary/10 hover:bg-primary hover:text-white transition-all shadow-xl bg-background" />
+            </div>
+            <div className="absolute -right-4 md:-right-20 top-1/2 -translate-y-1/2">
+              <CarouselNext className="h-12 w-12 border-primary/10 hover:bg-primary hover:text-white transition-all shadow-xl bg-background" />
+            </div>
+          </Carousel>
+        </div>
+
+        <div className="mt-12 text-center">
+          <Link href="/products" className="inline-flex items-center gap-4 text-primary font-black text-[11px] uppercase tracking-[0.4em] hover:text-secondary transition-all border-b-2 border-secondary/40 pb-2">
+            View Institutional Inventory
+          </Link>
         </div>
       </Section>
 
       {/* 5. TRUST & CREDENTIALS */}
-      <Section className="bg-background border-y border-border py-24">
+      <Section className="bg-background border-y border-secondary/20 py-24">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex items-center justify-center gap-3 mb-16">
-            <div className="w-10 h-[1px] bg-border" />
-            <span className="text-[10px] font-bold text-foreground uppercase tracking-[0.3em]">Our Certifications</span>
-            <div className="w-10 h-[1px] bg-border" />
+            <div className="w-10 h-[1px] bg-secondary" />
+            <span className="text-[10px] font-bold text-secondary uppercase tracking-[0.3em]">Compliance & Credentials</span>
+            <div className="w-10 h-[1px] bg-secondary" />
           </div>
 
           <div className="flex flex-wrap justify-center gap-x-16 gap-y-10 mb-16">
             <div className="flex flex-col items-center gap-3 group">
-              <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+              <div className="w-16 h-16 bg-secondary/10 rounded-sm flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white transition-all duration-300">
                 <Shield strokeWidth={1} className="w-6 h-6" />
               </div>
-              <span className="font-bold uppercase tracking-[0.1em] text-[9px] text-primary/60">GST Verified</span>
+              <span className="font-bold uppercase tracking-[0.1em] text-[9px] text-secondary">GST Standardized</span>
             </div>
             <div className="flex flex-col items-center gap-3 group">
-              <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+              <div className="w-16 h-16 bg-secondary/10 rounded-sm flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white transition-all duration-300">
                 <FileCheck strokeWidth={1} className="w-6 h-6" />
               </div>
-              <span className="font-bold uppercase tracking-[0.1em] text-[9px] text-primary/60">IEC Certified</span>
+              <span className="font-bold uppercase tracking-[0.1em] text-[9px] text-secondary">IEC Registered</span>
             </div>
             <div className="flex flex-col items-center gap-3 group">
-              <div className="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+              <div className="w-16 h-16 bg-secondary/10 rounded-sm flex items-center justify-center text-secondary group-hover:bg-secondary group-hover:text-white transition-all duration-300">
                 <Globe strokeWidth={1} className="w-6 h-6" />
               </div>
-              <span className="font-bold uppercase tracking-[0.1em] text-[9px] text-primary/60">Global Markets</span>
+              <span className="font-bold uppercase tracking-[0.1em] text-[9px] text-secondary">MENA Operations</span>
             </div>
           </div>
-          <p className="text-lg text-foreground/70 leading-relaxed max-w-2xl mx-auto font-medium font-serif italic">
-            Serving buyers across UAE, UK, and Europe with high-capacity sourcing and ethical trade standards.
+          <p className="text-xl text-primary/80 leading-relaxed max-w-2xl mx-auto font-medium font-serif italic border-t border-secondary/20 pt-10">
+            Provisioning Tier-I buyers across UAE, Oman, Qatar, and the European Continent with institutional-grade sourcing and ethical compliance.
           </p>
         </div>
       </Section>
 
       {/* 6. CONTACT CTA */}
-      <Section className="bg-primary text-primary-foreground py-24 relative overflow-hidden">
+      <Section className="bg-[#0b1626] text-white py-24 relative overflow-hidden">
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <h2 className="text-4xl md:text-5xl font-bold mb-8 leading-tight tracking-tight">
-            Start Your Export <span className="font-serif italic font-light opacity-60">Journey.</span>
+            Initiate Your <span className="font-serif italic font-light text-[#c09a40]">Export Directive.</span>
           </h2>
-          <p className="text-lg text-primary-foreground/70 mb-16 font-medium max-w-2xl mx-auto leading-relaxed">
-            Connect with our team for bulk inquiries and specialized sourcing requirements.
+          <p className="text-lg text-white/70 mb-16 font-medium max-w-2xl mx-auto leading-relaxed">
+            Consult with our Trade Commissioners for institutional bulk inquiries and specialized MENA sourcing requirements.
           </p>
 
           <div className="grid md:grid-cols-2 gap-8 items-center mb-16">
             <a
               href="https://wa.me/919876543210"
-              className="flex flex-col items-center p-10 bg-primary-foreground/5 border border-primary-foreground/10 rounded-2xl hover:bg-primary-foreground/10 transition-all group"
+              className="flex flex-col items-center p-10 bg-white/5 border border-secondary/20 rounded-sm hover:bg-white/10 transition-all group"
             >
-              <MessageCircle className="w-10 h-12 mb-4 text-primary-foreground/60 group-hover:text-primary-foreground transition-colors" strokeWidth={1} />
-              <span className="text-[9px] uppercase tracking-[0.3em] text-primary-foreground/40 mb-3 font-bold">WhatsApp</span>
-              <span className="text-xl font-bold tracking-tight text-primary-foreground">+91 (Export Line)</span>
+              <MessageCircle className="w-10 h-10 mb-4 text-secondary group-hover:text-[hsl(var(--success))] transition-colors" strokeWidth={1} />
+              <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-3 font-bold">Secure Trade Canal</span>
+              <span className="text-xl font-bold tracking-tight text-white">+91 (Export Operations)</span>
             </a>
             <a
               href="mailto:panoraexports@gmail.com"
-              className="flex flex-col items-center p-10 bg-primary-foreground/5 border border-primary-foreground/10 rounded-2xl hover:bg-primary-foreground/10 transition-all group"
+              className="flex flex-col items-center p-10 bg-white/5 border border-secondary/20 rounded-sm hover:bg-white/10 transition-all group"
             >
-              <Mail className="w-10 h-12 mb-4 text-primary-foreground/60 group-hover:text-primary-foreground transition-colors" strokeWidth={1} />
-              <span className="text-[9px] uppercase tracking-[0.3em] text-primary-foreground/40 mb-3 font-bold">Email</span>
-              <span className="text-xl font-bold tracking-tight text-primary-foreground">export@panora.global</span>
+              <Mail className="w-10 h-10 mb-4 text-secondary group-hover:text-white transition-colors" strokeWidth={1} />
+              <span className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-3 font-bold">Official Correspondence</span>
+              <span className="text-xl font-bold tracking-tight text-white">trade@panora.global</span>
             </a>
           </div>
 
-          <div className="inline-flex items-center gap-3 text-primary-foreground/30 text-[9px] uppercase font-bold tracking-[0.4em]">
-            <MapPin className="w-3.5 h-3.5" />
-            Mumbai, India
+          <div className="inline-flex items-center gap-3 text-white/30 text-[9px] uppercase font-bold tracking-[0.4em]">
+            <MapPin className="w-3.5 h-3.5 text-secondary" />
+            Global Export Hub: Mumbai, India
           </div>
         </div>
       </Section>
 
-      {/* Footer */}
-      <footer className="py-20 bg-background border-t border-border px-6 md:px-12">
+      <footer className="py-20 bg-[#0b1626] border-t border-[#c09a40]/20 px-6 md:px-12">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
           <Link href="/" className="flex flex-col items-center md:items-start group">
             <div className="flex items-baseline gap-1.5">
-              <span className="font-bold text-xl tracking-tight text-primary">
+              <span className="font-bold text-xl tracking-tight text-white">
                 PANORA
               </span>
-              <span className="font-serif italic text-primary text-lg font-light">
+              <span className="font-serif italic text-[#c09a40] text-lg font-light">
                 exports
               </span>
             </div>
-            <span className="text-[8px] text-muted-foreground uppercase tracking-[0.3em] font-bold mt-2">
+            <span className="text-[8px] text-white/50 uppercase tracking-[0.3em] font-bold mt-2">
               Global Exports
             </span>
           </Link>
 
-          <div className="text-muted-foreground/50 text-[9px] uppercase font-bold tracking-[0.2em] order-3 md:order-2">
+          <div className="text-white/40 text-[9px] uppercase font-bold tracking-[0.2em] order-3 md:order-2">
             © 2025 Panora Exports.
           </div>
 
@@ -318,7 +352,7 @@ export default function LuxuryLanding() {
               { label: 'FAQ', href: '/faq' },
               { label: 'Contact', href: '/contact' }
             ].map((link, i) => (
-              <Link key={i} href={link.href} className="text-[9px] uppercase tracking-[0.1em] font-bold text-muted-foreground hover:text-primary transition-colors">
+              <Link key={i} href={link.href} className="text-[9px] uppercase tracking-[0.1em] font-bold text-white/60 hover:text-[#c09a40] transition-colors">
                 {link.label}
               </Link>
             ))}
@@ -326,16 +360,15 @@ export default function LuxuryLanding() {
         </div>
       </footer>
 
-      {/* Floating WhatsApp Button */}
       <a
         href="https://wa.me/919876543210"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-10 right-10 w-20 h-20 bg-primary text-primary-foreground rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-500 z-50 group border border-border"
+        className="fixed bottom-10 right-10 w-20 h-20 bg-[hsl(var(--success))] text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-500 z-50 group border border-white/20"
       >
         <MessageCircle className="w-8 h-8" strokeWidth={1} />
-        <span className="absolute right-full mr-6 bg-background text-primary py-3 px-6 rounded-sm shadow-2xl text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-primary/10">
-          Initialize WhatsApp Secure Channel
+        <span className="absolute right-full mr-6 bg-primary text-white py-3 px-6 rounded-sm shadow-2xl text-[10px] font-black uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-secondary/20">
+          Initialize Secure Trade Channel
         </span>
       </a>
     </div>

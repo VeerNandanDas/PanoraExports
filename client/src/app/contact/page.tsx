@@ -55,20 +55,20 @@ export default function ContactPage() {
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        className="inline-flex items-center gap-2 px-4 py-1.5 bg-secondary/10 text-primary text-[9px] font-bold uppercase tracking-widest mb-8 border border-border/50 rounded-full"
+                        className="inline-flex items-center gap-2 px-4 py-1.5 bg-secondary/10 text-secondary text-[10px] font-bold uppercase tracking-widest mb-8 border border-secondary/20 rounded-sm"
                     >
                         <MessageCircle className="w-3.5 h-3.5" />
-                        Get in Touch
+                        Official Trade Inquiry
                     </motion.div>
                     <motion.h1
                         initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="text-4xl md:text-6xl font-black text-primary mb-6 tracking-tighter"
                     >
-                        Contact <span className="font-serif italic font-light opacity-80">Us.</span>
+                        Global <span className="font-serif italic font-light text-secondary">Correspondence.</span>
                     </motion.h1>
-                    <p className="text-primary/60 text-lg font-medium max-w-xl mx-auto">
-                        Have a question about sourcing or need a custom quote? Our team is ready to help you navigate global trade.
+                    <p className="text-primary/80 text-lg font-medium max-w-xl mx-auto">
+                        Inquiry regarding institutional sourcing or custom trade directives? Our commissioners are equipped to facilitate your international procurement requirements.
                     </p>
                 </div>
             </section>
@@ -195,13 +195,13 @@ export default function ContactPage() {
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="w-full bg-primary text-primary-foreground py-4 text-[10px] uppercase tracking-[0.2em] font-bold hover:opacity-90 transition-all disabled:opacity-50 flex items-center justify-center gap-3 rounded-full mt-6 shadow-lg hover:shadow-xl hover:-translate-y-1"
+                            className="w-full bg-[hsl(var(--success))] text-white py-4 text-[10px] uppercase tracking-[0.2em] font-bold hover:brightness-110 transition-all disabled:opacity-50 flex items-center justify-center gap-3 rounded-sm mt-6 shadow-lg"
                         >
                             {isSubmitting ? (
-                                <span className="animate-pulse">Sending...</span>
+                                <span className="animate-pulse">Processing Directive...</span>
                             ) : (
                                 <>
-                                    Send Message <Send className="w-4 h-4" />
+                                    Dispatch Inquiry <Send className="w-4 h-4" />
                                 </>
                             )}
                         </button>
