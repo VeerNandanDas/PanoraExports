@@ -110,7 +110,7 @@ export default function LuxuryLanding() {
                 href="https://wa.me/919876543210"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto px-10 py-4 bg-background text-primary text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-green-600 hover:border-radius-[80px] hover:text-white transition-all border border-border flex items-center justify-center gap-2 "
+                className="w-full sm:w-auto px-10 py-4 bg-background text-primary text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-accent hover:border-radius-[80px] hover:text-white transition-all border border-border flex items-center justify-center gap-2 "
               >
                 <MessageCircle className="w-3.5 h-3.5" />
                 WhatsApp

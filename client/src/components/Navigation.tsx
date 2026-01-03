@@ -72,13 +72,13 @@ export default function Navigation() {
                             className={cn(
                                 "text-[9px] tracking-[0.2em] uppercase font-bold transition-all duration-300 relative py-1",
                                 location === item.href
-                                    ? "text-foreground"
-                                    : "text-muted-foreground/70 hover:text-foreground"
+                                    ? "text-accent"
+                                    : "text-muted-foreground/70 hover:text-accent"
                             )}
                         >
                             {item.label}
                             {location === item.href && (
-                                <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-primary" />
+                                <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-accent" />
                             )}
                         </Link>
                     ))}
@@ -163,7 +163,7 @@ export default function Navigation() {
                                 key={item.label}
                                 href={item.href}
                                 onClick={() => setIsMenuOpen(false)}
-                                className="text-2xl uppercase tracking-[0.2em] font-black text-muted-foreground hover:text-primary"
+                                className="text-2xl uppercase tracking-[0.2em] font-black text-muted-foreground hover:text-accent"
                             >
                                 {item.label}
                             </Link>
